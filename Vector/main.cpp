@@ -3,8 +3,14 @@
 using namespace std;
 
 int main() {
-	Vector<int> num( 9, 3 );
-	for ( int i = 0; i < 9; i++ ) {
+	Vector<int> num( 10 );
+	for ( int i = 0; i < num.size(); i++ ) {
+		num[i] = i;
+		cout << "array[" << i << "] = " << num[i] << "\n";
+	}
+	cout << endl;
+	v_permute( num );
+	for ( int i = 0; i < num.size(); i++ ) {
 		cout << "array[" << i << "] = " << num[i] << "\n";
 	}
 	return 0;

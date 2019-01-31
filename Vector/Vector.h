@@ -1,7 +1,13 @@
 ﻿#pragma once
-#include <cmath>
+#ifndef __ADT_VECTOR__
+#define __ADT_VECTOR__
+
+#include <cstdlib>
+#include <ctime>
+
 typedef int Rank;
 static const int  DEFAULT_CAPACITY = 128;
+
 
 template<typename T>
 class Vector {
@@ -19,8 +25,9 @@ public:
 	Vector( const T * A, Rank n ) { copyFrom( A, 0, n ); }
 	Vector( const T * A, Rank lo, Rank hi ) { copyFrom( A, lo, hi ); }
 	Vector( const Vector<T> & vec ) { copyFrom( vec._elem, 0, vec.size ); }
-	Vector( const Vector<T> & vec, Rank lo, Rankhi ) { copyFrom( vec._elem, lo, hi ); }
+	Vector( const Vector<T> & vec, Rank lo, Rank hi ) { copyFrom( vec._elem, lo, hi ); }
 	// 规模为 length，初始元素为 val
+	Vector( int length );
 	Vector( int length, int val );
 	// 析构并释放内存空间
 	~Vector() { delete[] _elem; }
@@ -28,8 +35,9 @@ public:
 	T & operator[]( Rank index ) const;          // Vector 寻秩访问
 	T & operator=( const Vector<T> & vec );      // Vector 赋值克隆
 
-	Rank size() const { return _size; }          // 返回当前 Vector 所含元素数目
+	Rank size() const { return _size; }          // 规模
 	bool empty() const { return !_size; }        // 判空
+	bool disordered() const;                     // 是否升序排列
 	Rank find( const T & e, Rank lo, Rank hi );  // 遍历查找元素 e
 };
 
@@ -74,6 +82,16 @@ inline Vector<T>::Vector() {
 }
 
 template<typename T>
+inline Vector<T>::Vector( int length ) {
+	_capacity = DEFAULT_CAPACITY;
+	while ( length > _capacity ) {
+		_capacity <<= 1;
+	}
+	_elem = new int[_capacity];
+	_size = length;
+}
+
+template<typename T>
 inline Vector<T>::Vector( int length, int val ) {
 	_capacity = DEFAULT_CAPACITY;
 	while ( length > _capacity ) {
@@ -95,8 +113,19 @@ template<typename T>
 inline T & Vector<T>::operator=( const Vector<T> & vec ) {
 	if ( _elem )
 		delete[] _elem;
-	copyFrom( vec._elem, 0, vec.size );
+	copyFrom( vec._elem, 0, vec.size() );
 	return *this;
+}
+
+template<typename T>
+inline bool Vector<T>::disordered() const {
+	if ( _size < 2 )
+		return true;
+	for ( int i = 1; i < _size; i++ ) {
+		if ( _elem[i] <= _elem[i - 1] )
+			return false;
+	}
+	return true;
 }
 
 template<typename T>
@@ -107,3 +136,19 @@ inline Rank Vector<T>::find( const T & e, Rank lo, Rank hi ) {
 	}
 	return -1;
 }
+
+// swap function
+template<typename T>
+void v_swap( T & a, T & b ) {
+	T c( std::move( a ) ); a = std::move( b ); b = std::move( c );
+};
+
+// 随机置乱 Vector
+template<typename T>
+void v_permute( Vector<T> & vec ) {
+	for ( int i = vec.size(); i > 0; i-- ) {
+		v_swap( vec[i - 1], vec[std::rand() % i] );
+	}
+};
+
+#endif // !__ADT_VECTOR__
