@@ -15,13 +15,13 @@ protected:
 
 public:
 	Vector();
-	Vector( int s = 0, int v = 0 );  // 容量为 DEFAULT_CAPACITY (128)，规模为 s，初始元素为 v
-	~Vector() { delete[] _elem; }    // 删除 _elem 数组，释放内存空间
-	T & operator[]( Rank index ) const;
-	T & operator=( Vector<T> const & vec );
-	Rank size() const { return _size; }
-	bool empty() const { return !_size; }
-	Rank find( T const & e, Rank lo, Rank hi );
+	Vector( int s = 0, int v = 0 );            // 容量为 DEFAULT_CAPACITY (128)，规模为 s，初始元素为 v
+	~Vector() { delete[] _elem; }              // 删除 _elem 数组，释放内存空间
+	T & operator[]( Rank index ) const;        // Vector 寻秩访问
+	T & operator=( Vector<T> const & vec );    // Vector clone
+	Rank size() const { return _size; }        // 返回当前 Vector 所含元素数目
+	bool empty() const { return !_size; }      // 判空
+	Rank find( T const & e, Rank lo, Rank hi );// 遍历查找元素 e
 };
 
 template<typename T>
