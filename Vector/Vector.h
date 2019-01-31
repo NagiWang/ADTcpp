@@ -9,27 +9,27 @@ protected:
 	Rank _size;
 	T *  _elem;
 	int  _capacity = 0;
-	void copyFrom( T const * A, Rank lo, Rank hi );
+	void copyFrom( const T * A, const Rank lo, const Rank hi );
 	void expend();
 	void shrink();
 
 public:
 	Vector();
-	Vector( int s = 0, int v = 0 );            // 容量为 DEFAULT_CAPACITY (128)，规模为 s，初始元素为 v
-	~Vector() { delete[] _elem; }              // 删除 _elem 数组，释放内存空间
-	T & operator[]( Rank index ) const;        // Vector 寻秩访问
-	T & operator=( Vector<T> const & vec );    // Vector clone
-	Rank size() const { return _size; }        // 返回当前 Vector 所含元素数目
-	bool empty() const { return !_size; }      // 判空
-	Rank find( T const & e, Rank lo, Rank hi );// 遍历查找元素 e
+	Vector( const int length, const int val );                                // 规模为 length，初始元素为 val
+	~Vector() { delete[] _elem; }                                            // 释放内存空间
+	T & operator[]( const Rank index ) const;                               // Vector 寻秩访问
+	T & operator=( const Vector<T> & vec );                                // Vector clone
+	Rank size() const { return _size; }                                   // 返回当前 Vector 所含元素数目
+	bool empty() const { return !_size; }                                // 判空
+	Rank find( const T & e, const Rank lo = 0, const Rank hi = _size ); // 遍历查找元素 e
 };
 
 template<typename T>
-inline void Vector<T>::copyFrom( T const * A, Rank lo, Rank hi ) {
+inline void Vector<T>::copyFrom( const T * A, const Rank lo, const Rank hi ) {
 	_elem = new T[_capacity = (lo + hi) << 1];
 	_size = 0;
-	while ( lo < hi ) {
-		_elem[_size++] = A[lo++];
+	for ( int i = lo; i < hi; i++ ) {
+		_elem[_size++] = A[i];
 	}
 }
 
@@ -65,25 +65,25 @@ inline Vector<T>::Vector() {
 }
 
 template<typename T>
-inline Vector<T>::Vector( int s, int v ) {
+inline Vector<T>::Vector( const int length, const int val ) {
 	_capacity = DEFAULT_CAPACITY;
-	while ( s > _capacity ) {
+	while ( length > _capacity ) {
 		_capacity <<= 1;
 	}
 	_elem = new int[_capacity];
-	for ( int i = 0; i < s; i++ ) {
-		_elem[i] = v;
+	for ( int i = 0; i < length; i++ ) {
+		_elem[i] = val;
 	}
-	_size = s;
+	_size = length;
 }
 
 template<typename T>
-inline T & Vector<T>::operator[]( Rank index ) const {
+inline T & Vector<T>::operator[]( const Rank index ) const {
 	return _elem[index];
 }
 
 template<typename T>
-inline T & Vector<T>::operator=( Vector<T> const & vec ) {
+inline T & Vector<T>::operator=( const Vector<T> & vec ) {
 	if ( _elem )
 		delete[] _elem;
 	copyFrom( vec._elem, 0, vec.size );
@@ -91,7 +91,10 @@ inline T & Vector<T>::operator=( Vector<T> const & vec ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::find( T const & e, Rank lo, Rank hi ) {
-	while ( (lo < hi--) and (e != _elem[lo]) );
-	return hi;
+inline Rank Vector<T>::find( T const & e, const Rank lo, const Rank hi ) {
+	for ( int i = lo; i < hi; i++ ) {
+		if ( e == _elem[i] )
+			return i;
+	}
+	return -1;
 }

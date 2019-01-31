@@ -3,9 +3,9 @@
 using namespace std;
 
 int main() {
-	Vector<int> num( 9, 1 );
+	Vector<int> num( 9, 3 );
 	for ( int i = 0; i < 9; i++ ) {
-		cout << "array[" << i << "] = " << num[i] << endl;
+		cout << "array[" << i << "] = " << num[i] << "\n";
 	}
 	return 0;
 }
