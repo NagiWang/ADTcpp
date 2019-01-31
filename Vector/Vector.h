@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <cmath>
 typedef int Rank;
 static const int  DEFAULT_CAPACITY = 128;
 
@@ -15,10 +15,19 @@ protected:
 
 public:
 	Vector();
-	Vector( int length, int val );               // 规模为 length，初始元素为 val
-	~Vector() { delete[] _elem; }                // 释放内存空间
+	// 通过复制 Vector 或 数组 的元素创建 new Vector
+	Vector( const T * A, Rank n ) { copyFrom( A, 0, n ); }
+	Vector( const T * A, Rank lo, Rank hi ) { copyFrom( A, lo, hi ); }
+	Vector( const Vector<T> & vec ) { copyFrom( vec._elem, 0, vec.size ); }
+	Vector( const Vector<T> & vec, Rank lo, Rankhi ) { copyFrom( vec._elem, lo, hi ); }
+	// 规模为 length，初始元素为 val
+	Vector( int length, int val );
+	// 析构并释放内存空间
+	~Vector() { delete[] _elem; }
+
 	T & operator[]( Rank index ) const;          // Vector 寻秩访问
-	T & operator=( const Vector<T> & vec );      // Vector clone
+	T & operator=( const Vector<T> & vec );      // Vector 赋值克隆
+
 	Rank size() const { return _size; }          // 返回当前 Vector 所含元素数目
 	bool empty() const { return !_size; }        // 判空
 	Rank find( const T & e, Rank lo, Rank hi );  // 遍历查找元素 e
