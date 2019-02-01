@@ -32,13 +32,18 @@ public:
 	// 析构并释放内存空间
 	~Vector() { delete[] _elem; }
 
-	T & operator[]( Rank index ) const;          // Vector 寻秩访问
-	T & operator=( const Vector<T> & vec );      // Vector 赋值克隆
+	T & operator[]( Rank index ) const;                      // Vector 寻秩访问
+	T & operator=( const Vector<T> & vec );                  // Vector 赋值克隆
 
-	Rank size() const { return _size; }          // 规模
-	bool empty() const { return !_size; }        // 判空
-	bool isordered( bool ascending = true ) const;                     // 是否升序排列
-	Rank find( const T & e, Rank lo, Rank hi );  // 遍历查找元素 e
+	Rank size() const { return _size; }                      // 规模
+	bool empty() const { return !_size; }                    // 判空
+	void insert( Rank index, const T & e );                  // 插入
+	bool remove( const T & val );                            // 移除元素 val
+	void remove( Rank lo, Rank hi );                         // 移出区间 [ lo, hi)
+	bool isordered( bool ascending = true ) const;           // 是否升序排列
+	Rank find( const T & e, Rank lo = 0, Rank hi = _size );  // 遍历查找元素 e
+
+
 };
 
 template<typename T>
@@ -118,6 +123,42 @@ inline T & Vector<T>::operator=( const Vector<T> & vec ) {
 }
 
 template<typename T>
+inline void Vector<T>::insert( Rank index, const T & e ) {
+	expend();
+	for ( int i = _size; i > index; i-- ) {
+		_elem[i] = _elem[i - 1];
+	}
+	_elem[index] = e;
+	++_size;
+}
+
+template<typename T>
+inline bool Vector<T>::remove( const T & val ) {
+	for ( int i = 0; i < _size; i++ ) {
+		if ( _elem == val ) {
+			int index = i + 1;
+			while ( index < _size ) {
+				_elem[index - 1] = _elem[index];
+			}
+			--_size;
+			return true;
+		}
+	}
+	return false;
+}
+
+template<typename T>
+inline void Vector<T>::remove( Rank lo, Rank hi ) {
+	if ( lo == hi )
+		return;
+	while ( hi < _size ) {
+		_elem[lo++] = _elem[hi++];
+	}
+	_size = lo;
+	shrink();
+}
+
+template<typename T>
 inline bool Vector<T>::isordered( bool ascending ) const {
 	if ( _size < 2 )
 		return true;
@@ -152,7 +193,7 @@ void v_swap( T & a, T & b ) {
 
 // 随机置乱 Vector
 template<typename T>
-void v_permute( Vector<T> & vec ) {
+void unsort( Vector<T> & vec ) {
 	for ( int i = vec.size(); i > 0; i-- ) {
 		v_swap( vec[i - 1], vec[std::rand() % i] );
 	}
