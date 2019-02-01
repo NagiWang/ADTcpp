@@ -37,7 +37,7 @@ public:
 
 	Rank size() const { return _size; }          // 规模
 	bool empty() const { return !_size; }        // 判空
-	bool disordered() const;                     // 是否升序排列
+	bool isordered( bool ascending = true ) const;                     // 是否升序排列
 	Rank find( const T & e, Rank lo, Rank hi );  // 遍历查找元素 e
 };
 
@@ -118,12 +118,19 @@ inline T & Vector<T>::operator=( const Vector<T> & vec ) {
 }
 
 template<typename T>
-inline bool Vector<T>::disordered() const {
+inline bool Vector<T>::isordered( bool ascending ) const {
 	if ( _size < 2 )
 		return true;
-	for ( int i = 1; i < _size; i++ ) {
-		if ( _elem[i] <= _elem[i - 1] )
-			return false;
+	if ( ascending ) {
+		for ( int i = 1; i < _size; i++ ) {
+			if ( _elem[i] <= _elem[i - 1] )
+				return false;
+		}
+	} else {
+		for ( int i = 1; i < _size; i++ ) {
+			if ( _elem[i] >= _elem[i - 1] )
+				return false;
+		}
 	}
 	return true;
 }
