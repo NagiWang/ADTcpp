@@ -218,4 +218,5 @@ void unsort( Vector<T> & vec ) {
 	}
 };
 
+
 #endif // !__ADT_VECTOR__
