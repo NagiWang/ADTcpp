@@ -8,6 +8,10 @@
 typedef int Rank;
 static const int  DEFAULT_CAPACITY = 128;
 
+template<typename T> void v_swap( T & a, T & b );
+template<typename T> const T & v_max( T & a, T & b );
+template<typename T> const T & v_min( T & a, T & b );
+
 
 template<typename T>
 class Vector {
@@ -18,9 +22,14 @@ protected:
 	void copyFrom( const T * A, Rank lo, Rank hi );  // 复制数组区间 [ lo, hi )
 	void expend();                                   // 扩容
 	void shrink();                                   // 缩容
-	bool bubble( Rank lo, Rank hi );                 // 扫描交换 [ lo, hi )
-	void bubbleSort( Rank lo, Rank hi );             // 冒泡排序 [ lo, hi )
+	bool bubble( Rank lo, Rank hi );                 // 区间扫描交换 [ lo, hi )
+	void bubbleSort( Rank lo, Rank hi );             // 区间冒泡排序 [ lo, hi )
 	void merge( Rank lo, Rank mi, Rank hi );         // 归并有序区间 [ lo, mi ) 和 [ mi, hi )
+	void mergeSort( Rank lo, Rank hi );              // 区间归并排序 [ lo, hi )
+	Rank partition( Rank lo, Rank hi );              // 区间轴点构造 [ lo, hi ]
+	void quickSort( Rank lo, Rank hi );              // 区间快速排序 [ lo, hi )
+	void selectionSort( Rank lo, Rank hi );          // 区间选择排序 [ lo, hi )
+
 
 public:
 	// 构造 Vector
@@ -34,7 +43,7 @@ public:
 	// 析构 Vector
 	~Vector() { delete[] _elem; }
 
-	T & operator[]( Rank index ) const;                        // Vector 寻秩访问
+	T & operator[]( Rank index );                        // Vector 寻秩访问
 	T & operator=( const Vector<T> & vec );                    // Vector 赋值克隆
 
 	Rank size() const { return _size; }                        // 规模
@@ -42,14 +51,14 @@ public:
 	void insert( Rank index, const T & val );                  // 插入元素 val
 	Rank push_back( const T & val );                           // 向末尾插入元素 val
 	void remove( Rank lo, Rank hi );                           // 移出区间 [ lo, hi )
-	const T remove( Rank index );                              // 按秩移除元素
+	const T & remove( Rank index );                              // 按秩移除元素
 	bool isordered( bool ascending = true ) const;             // 是否升序排列
 	Rank find( const T & val, Rank lo = 0, Rank hi = _size );  // 遍历查找元素 val
 	Rank findRemove( const T & val );                          // 移除元素 val
 	Rank deduplicate();                                        // 无序 Vector 去重
-
 	// Sort Function( 1:MergeSort(default), 2:QuickSort, 3:BubbleSort, 4:SelectionSort )
-
+	void sort( Rank lo, Rank hi, int SortType = 1 );           // 区间排序 [ lo, hi )
+	void sort( int SortType = 1 );                             // 全局排序
 };
 
 template<typename T>
@@ -93,7 +102,7 @@ inline bool Vector<T>::bubble( Rank lo, Rank hi ) {
 	while ( ++lo < hi ) {
 		if ( _elem[lo - 1] > _elem[lo] ) {
 			sorted = false;
-			v_swap( _elem[lo - 1], _elem[lo] );
+			v_swap<T>( _elem[lo - 1], _elem[lo] );
 		}
 	}
 	return sorted;
@@ -115,10 +124,60 @@ inline void Vector<T>::merge( Rank lo, Rank mi, Rank hi ) {
 	for ( Rank i = 0, j = 0, k = 0; (j < ml) or (k < hm); ) {
 		if ( (j < ml) and (!(k < hm) or (B[j] <= C[k])) )
 			A[i++] = B[j++];
-		if ( (k < hm) and (!(j < ml) or (C[k] < B[j])) )
-			A[i++] = B[k++];
+		if ( (k < hm) and (!(j < ml) or (B[j] > C[k])) )
+			A[i++] = C[k++];
 	}
 	delete[] B;
+}
+
+template<typename T>
+inline void Vector<T>::mergeSort( Rank lo, Rank hi ) {
+	if ( hi - lo < 2 )
+		return;
+	int mi = (lo + hi) >> 1;
+	mergeSort( lo, mi ); mergeSort( mi, hi );
+	merge( lo, mi, hi );
+}
+
+template<typename T>
+inline Rank Vector<T>::partition( Rank lo, Rank hi ) {
+	v_swap<T>( _elem[lo], _elem[(lo + hi) >> 1] );
+	T pivot = _elem[lo];
+	while ( lo < hi ) {
+		while ( lo < hi )
+			if ( _elem[hi] > pivot )
+				hi--;
+			else { _elem[lo++] = _elem[hi]; break; }
+
+		while ( lo < hi )
+			if ( _elem[lo] < pivot )
+				lo++;
+			else { _elem[hi--] = _elem[lo]; break; }
+	}
+	_elem[lo] = pivot;
+	return lo;
+}
+
+template<typename T>
+inline void Vector<T>::quickSort( Rank lo, Rank hi ) {
+	if ( hi - lo < 2 )
+		return;
+	Rank mi = partition( lo, hi - 1 );
+	quickSort( lo, mi ); quickSort( mi + 1, hi );
+}
+
+template<typename T>
+inline void Vector<T>::selectionSort( Rank lo, Rank hi ) {
+	while ( lo < hi ) {
+		Rank index = lo;
+		Rank max_index = lo;
+		while ( index < hi ) {
+			if ( _elem[index] > _elem[max_index] )
+				max_index = index;
+			++index;
+		}
+		v_swap<T>( _elem[--hi], _elem[max_index] );
+	}
 }
 
 template<typename T>
@@ -150,7 +209,7 @@ inline Vector<T>::Vector( int length, int val ) {
 }
 
 template<typename T>
-inline T & Vector<T>::operator[]( Rank index ) const {
+inline T & Vector<T>::operator[]( Rank index ) {
 	return _elem[index];
 }
 
@@ -191,7 +250,7 @@ inline void Vector<T>::remove( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline const T Vector<T>::remove( Rank index ) {
+inline const T & Vector<T>::remove( Rank index ) {
 	T val = _elem[index];
 	remove( index, index + 1 );
 	return val;
@@ -249,6 +308,21 @@ inline Rank Vector<T>::deduplicate() {
 	return oldSize - _size;
 }
 
+template<typename T>
+inline void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
+	switch ( SortType ) {
+		case 1: mergeSort( lo, hi ); break;
+		case 2: quickSort( lo, hi ); break;
+		case 3: bubbleSort( lo, hi ); break;
+		case 4: selectionSort( lo, hi ); break;
+	}
+}
+
+template<typename T>
+inline void Vector<T>::sort( int SortType ) {
+	sort( 0, _size, SortType );
+}
+
 
 // swap function
 template<typename T>
@@ -260,9 +334,21 @@ void v_swap( T & a, T & b ) {
 template<typename T>
 void unsort( Vector<T> & vec ) {
 	for ( int i = vec.size(); i > 0; i-- ) {
-		v_swap( vec[i - 1], vec[std::rand() % i] );
+		v_swap<T>( vec[i - 1], vec[(std::rand() + i) % vec.size()] );
 	}
 };
+
+// the max of ( a, b )
+template<typename T>
+const T & v_max( T & a, T & b ) {
+	return (a >= b) ? a : b;
+}
+
+// the min of ( a, b )
+template<typename T>
+const T & v_min( T & a, T & b ) {
+	return (a <= b) ? a : b;
+}
 
 
 #endif // !__ADT_VECTOR__
