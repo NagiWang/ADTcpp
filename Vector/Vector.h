@@ -334,7 +334,7 @@ void v_swap( T & a, T & b ) {
 template<typename T>
 void unsort( Vector<T> & vec ) {
 	for ( int i = vec.size(); i > 0; i-- ) {
-		v_swap<T>( vec[i - 1], vec[(std::rand() + i) % vec.size()] );
+		v_swap<T>( vec[i - 1], vec[std::rand() % i] );
 	}
 };
 
