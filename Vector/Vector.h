@@ -238,16 +238,16 @@ template<typename T>
 inline Rank Vector<T>::binSearch_B( const T & val, Rank lo, Rank hi ) {
 	while ( hi - lo > 1 ) {
 		Rank mi = (lo + hi) >> 1;
-		(val > _elem[mi]) ? lo = mi : hi = mi;
+		(val < _elem[mi]) ? hi = mi : lo = mi;
 	}
 	return (val == _elem[lo]) ? lo : -1;
 }
 
 template<typename T>
 inline Rank Vector<T>::binSearch_C( const T & val, Rank lo, Rank hi ) {
-	while ( hi - lo > 1 ) {
+	while ( lo < hi ) {
 		Rank mi = (lo + hi) >> 1;
-		(val > _elem[mi]) ? lo = mi + 1 : hi = mi;
+		(val < _elem[mi]) ? hi = mi : lo = mi + 1;
 	}
 	return --lo;
 }

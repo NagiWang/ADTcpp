@@ -35,5 +35,7 @@ int main() {
 	}
 	cout << "the size of array: " << array.size() << endl << endl;
 	cout << "the array is ordered: " << array.isordered() << endl << endl;
+	cout << "the " << 3 << " is array[" << array.search( 3 ) << "] = "
+		 << array[array.search( 3 )] << endl;
 	return 0;
 }
