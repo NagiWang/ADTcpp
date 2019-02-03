@@ -5,7 +5,7 @@ using namespace std;
 int main() {
 	Vector<int> array( 10 );
 	for ( int i = array.size() - 1; i >= 0; i-- ) {
-		array[9 - i] = i - 5;
+		array[9 - i] = std::rand() % 10 - 5;
 		cout << "array[" << 9 - i << "] = " << array[9 - i] << endl;
 	}
 	cout << "the size of array: " << array.size() << endl << endl;

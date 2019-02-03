@@ -23,6 +23,7 @@ protected:
 	void shrink();                                   // 缩容
 	bool bubble( Rank lo, Rank hi );                 // 区间扫描交换 [ lo, hi )
 	void bubbleSort( Rank lo, Rank hi );             // 区间冒泡排序 [ lo, hi )
+	void bubbleSortPlus( Rank lo, Rank hi );         // 加强版冒泡排序 [ lo, hi )
 	void merge( Rank lo, Rank mi, Rank hi );         // 归并有序区间 [ lo, mi ) 和 [ mi, hi )
 	void mergeSort( Rank lo, Rank hi );              // 区间归并排序 [ lo, hi )
 	Rank partition( Rank lo, Rank hi );              // 区间轴点构造 [ lo, hi ]
@@ -55,7 +56,11 @@ public:
 	Rank find( const T & val, Rank lo = 0, Rank hi = _size );  // 遍历查找元素 val
 	Rank findRemove( const T & val );                          // 移除元素 val
 	Rank deduplicate();                                        // 无序 Vector 去重
-	// Sort Function( 1:MergeSort(default), 2:QuickSort, 3:BubbleSort, 4:SelectionSort )
+	// Sort Function( 1:MergeSort(default),
+	//                2:QuickSort,
+	//                3:BubbleSort,
+	//                4:BubbleSortPlus,
+	//                5:SelectionSort )
 	void sort( Rank lo, Rank hi, int SortType = 1 );           // 区间排序 [ lo, hi )
 	void sort( int SortType = 1 );                             // 全局排序
 };
@@ -110,6 +115,30 @@ inline bool Vector<T>::bubble( Rank lo, Rank hi ) {
 template<typename T>
 inline void Vector<T>::bubbleSort( Rank lo, Rank hi ) {
 	while ( !bubble( lo, hi-- ) );
+}
+
+template<typename T>
+inline void Vector<T>::bubbleSortPlus( Rank lo, Rank hi ) {
+	int left = lo;
+	int right = hi - 1;
+	bool sorted = false;
+	while ( (left < right) and !sorted ) {
+		sorted = true;
+		for ( int i = left; i < right; i++ ) {
+			if ( _elem[i] > _elem[i + 1] ) {
+				v_swap( _elem[i], _elem[i + 1] );
+				sorted = false;
+			}
+		}
+		--right;
+		for ( int i = right; i > left; i-- ) {
+			if ( _elem[i - 1] > _elem[i] ) {
+				v_swap( _elem[i - 1], _elem[i] );
+				sorted = false;
+			}
+		}
+		++left;
+	}
 }
 
 template<typename T>
@@ -261,12 +290,12 @@ inline bool Vector<T>::isordered( bool ascending ) const {
 		return true;
 	if ( ascending ) {
 		for ( int i = 1; i < _size; i++ ) {
-			if ( _elem[i] <= _elem[i - 1] )
+			if ( _elem[i] < _elem[i - 1] )
 				return false;
 		}
 	} else {
 		for ( int i = 1; i < _size; i++ ) {
-			if ( _elem[i] >= _elem[i - 1] )
+			if ( _elem[i] > _elem[i - 1] )
 				return false;
 		}
 	}
@@ -313,7 +342,8 @@ inline void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
 		case 1: mergeSort( lo, hi ); break;
 		case 2: quickSort( lo, hi ); break;
 		case 3: bubbleSort( lo, hi ); break;
-		case 4: selectionSort( lo, hi ); break;
+		case 4: bubbleSortPlus( lo, hi ); break;
+		case 5: selectionSort( lo, hi ); break;
 	}
 }
 
