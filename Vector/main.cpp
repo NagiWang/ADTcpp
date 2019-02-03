@@ -17,13 +17,13 @@ int main() {
 	}
 	cout << "the size of array: " << array.size() << endl << endl;
 	cout << "the array is ordered: " << array.isordered() << endl << endl;
-	unsort( array );
+	array.unsort();
 	for ( int i = 0; i < array.size(); i++ ) {
 		cout << "array[" << i << "] = " << array[i] << "\n";
 	}
 	cout << "the size of array: " << array.size() << endl << endl;
 	cout << "the array is ordered: " << array.isordered() << endl << endl;
-	array.sort( 4 );
+	array.sort( 3 );
 	for ( int i = 0; i < array.size(); i++ ) {
 		cout << "array[" << i << "] = " << array[i] << "\n";
 	}

@@ -29,7 +29,9 @@ protected:
 	Rank partition( Rank lo, Rank hi );              // 区间轴点构造 [ lo, hi ]
 	void quickSort( Rank lo, Rank hi );              // 区间快速排序 [ lo, hi )
 	void selectionSort( Rank lo, Rank hi );          // 区间选择排序 [ lo, hi )
-
+	Rank binSearch_A( const T & val, Rank lo, Rank hi );   // 二分搜索A版本 [ lo, hi )
+	Rank binSearch_B( const T & val, Rank lo, Rank hi );   // 二分搜索B版本 [ lo, hi )
+	Rank binSearch_C( const T & val, Rank lo, Rank hi );   // 二分搜索C版本 [ lo, hi )
 
 public:
 	// 构造 Vector
@@ -56,13 +58,23 @@ public:
 	Rank find( const T & val, Rank lo = 0, Rank hi = _size );  // 遍历查找元素 val
 	Rank findRemove( const T & val );                          // 移除元素 val
 	Rank deduplicate();                                        // 无序 Vector 去重
+	Rank uniquify();                                           // 有序 Vector 去重
 	// Sort Function( 1:MergeSort(default),
 	//                2:QuickSort,
 	//                3:BubbleSort,
 	//                4:BubbleSortPlus,
 	//                5:SelectionSort )
-	void sort( Rank lo, Rank hi, int SortType = 1 );           // 区间排序 [ lo, hi )
-	void sort( int SortType = 1 );                             // 全局排序
+	void sort( Rank lo, Rank hi, int SortType = 1 );     // 区间排序 [ lo, hi )
+	void sort( int SortType = 1 );                       // 全局排序
+	void unsort( Rank lo, Rank hi );                     // 随机置乱 Vector
+	void unsort();
+	// Sort Function( 1:BinarySearch_C(default),
+	//                2:BinarySearch_B,
+	//                3:BinarySearch_A,
+	//                4:FibonacciSearch)
+	Rank search( const T & val, Rank lo, Rank hi, int searchType = 1 );
+	Rank search( const T & val, int searchType = 1 );
+
 };
 
 template<typename T>
@@ -209,6 +221,38 @@ inline void Vector<T>::selectionSort( Rank lo, Rank hi ) {
 }
 
 template<typename T>
+inline Rank Vector<T>::binSearch_A( const T & val, Rank lo, Rank hi ) {
+	while ( lo < hi ) {
+		Rank mi = (lo + hi) >> 1;
+		if ( val < _elem[mi] )
+			hi = mi;
+		else if ( val > _elem[mi] )
+			lo = mi + 1;
+		else
+			return mi;
+	}
+	return -1;
+}
+
+template<typename T>
+inline Rank Vector<T>::binSearch_B( const T & val, Rank lo, Rank hi ) {
+	while ( hi - lo > 1 ) {
+		Rank mi = (lo + hi) >> 1;
+		(val > _elem[mi]) ? lo = mi : hi = mi;
+	}
+	return (val == _elem[lo]) ? lo : -1;
+}
+
+template<typename T>
+inline Rank Vector<T>::binSearch_C( const T & val, Rank lo, Rank hi ) {
+	while ( hi - lo > 1 ) {
+		Rank mi = (lo + hi) >> 1;
+		(val > _elem[mi]) ? lo = mi + 1 : hi = mi;
+	}
+	return --lo;
+}
+
+template<typename T>
 inline Vector<T>::Vector() {
 	_elem = new int[_capacity = DEFAULT_CAPACITY];
 }
@@ -337,6 +381,18 @@ inline Rank Vector<T>::deduplicate() {
 }
 
 template<typename T>
+inline Rank Vector<T>::uniquify() {
+	Rank i = 0, j = 0;
+	while ( ++j < _size ) {
+		if ( _elem[i] != _elem[j] )
+			_elem[++i] = _elem[j];
+	}
+	_size = ++i;
+	shrink();
+	return j - i;
+}
+
+template<typename T>
 inline void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
 	switch ( SortType ) {
 		case 1: mergeSort( lo, hi ); break;
@@ -352,19 +408,38 @@ inline void Vector<T>::sort( int SortType ) {
 	sort( 0, _size, SortType );
 }
 
+template<typename T>
+inline void Vector<T>::unsort( Rank lo, Rank hi ) {
+	for ( int i = _size; i > lo; i-- ) {
+		v_swap<T>( _elem[i - 1], _elem[std::rand() % i] );
+	}
+}
+
+template<typename T>
+inline void Vector<T>::unsort() {
+	unsort( 0, _size );
+}
+
+template<typename T>
+inline Rank Vector<T>::search( const T & val, Rank lo, Rank hi, int searchType ) {
+	switch ( searchType ) {
+		case 1: return binSearch_C( val, lo, hi );
+		case 2: return binSearch_B( val, lo, hi );
+		case 3: return binSearch_A( val, lo, hi );
+	}
+	return -1;
+}
+
+template<typename T>
+inline Rank Vector<T>::search( const T & val, int searchType ) {
+	return search( val, 0, _size, searchType );
+}
+
 
 // swap function
 template<typename T>
 void v_swap( T & a, T & b ) {
 	T c( std::move( a ) ); a = std::move( b ); b = std::move( c );
-};
-
-// 随机置乱 Vector
-template<typename T>
-void unsort( Vector<T> & vec ) {
-	for ( int i = vec.size(); i > 0; i-- ) {
-		v_swap<T>( vec[i - 1], vec[std::rand() % i] );
-	}
 };
 
 // the max of ( a, b )
