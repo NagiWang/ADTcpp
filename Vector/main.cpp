@@ -2,6 +2,14 @@
 #include "Vector.h"
 using namespace std;
 
+template<typename T> void squart( T & a ) {
+	a *= a;
+};
+
+template<typename T> struct Squart {
+	void operator() ( T & val ) { val++; }
+};
+
 int main() {
 	Vector<int> array( 10 );
 	for ( int i = array.size() - 1; i >= 0; i-- ) {
@@ -36,6 +44,15 @@ int main() {
 	cout << "the size of array: " << array.size() << endl << endl;
 	cout << "the array is ordered: " << array.isordered() << endl << endl;
 	cout << "the " << 3 << " is array[" << array.search( 3 ) << "] = "
-		 << array[array.search( 3 )] << endl;
+		 << array[array.search( 3 )] << endl << endl;
+   //void( *pk )( int & ) = squart;
+	array.traverse( squart );
+	for ( int i = 0; i < array.size(); i++ ) {
+		cout << "array[" << i << "] = " << array[i] << "\n";
+	}
+	cout << "the size of array: " << array.size() << endl << endl;
+	int a = 5;
+	Squart<int>()( a );
+	cout << a << endl;
 	return 0;
 }
