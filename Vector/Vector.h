@@ -75,11 +75,14 @@ public:
 	Rank search( const T & val, Rank lo, Rank hi, int searchType = 1 );
 	Rank search( const T & val, int searchType = 1 );
 
+	void traverse( void( *visit )( T & ) );                // 使用函数指针遍历（只读或局部修改）
+	template<typename VST> void traverse( VST & visit );   // 使用函数对象遍历
+
 };
 
 template<typename T>
 inline void Vector<T>::copyFrom( const T * A, Rank lo, Rank hi ) {
-	_elem = new T[_capacity = (lo + hi) << 1];
+	_elem = new T[_capacity = ( lo + hi ) << 1];
 	_size = 0;
 	for ( int i = lo; i < hi; i++ ) {
 		_elem[_size++] = A[i];
@@ -102,7 +105,7 @@ inline void Vector<T>::expend() {
 
 template<typename T>
 inline void Vector<T>::shrink() {
-	if ( _capacity < DEFAULT_CAPACITY or (_size << 2) > _capacity )
+	if ( _capacity < DEFAULT_CAPACITY or ( _size << 2 ) > _capacity )
 		return;
 	T * oldElem = _elem;
 	_elem = new T[_capacity >>= 1];
@@ -134,7 +137,7 @@ inline void Vector<T>::bubbleSortPlus( Rank lo, Rank hi ) {
 	int left = lo;
 	int right = hi - 1;
 	bool sorted = false;
-	while ( (left < right) and !sorted ) {
+	while ( ( left < right ) and !sorted ) {
 		sorted = true;
 		for ( int i = left; i < right; i++ ) {
 			if ( _elem[i] > _elem[i + 1] ) {
@@ -161,10 +164,10 @@ inline void Vector<T>::merge( Rank lo, Rank mi, Rank hi ) {
 	for ( Rank i = 0; i < ml; B[i] = A[i++] );
 	int hm = hi - mi;
 	T * C = _elem + mi;
-	for ( Rank i = 0, j = 0, k = 0; (j < ml) or (k < hm); ) {
-		if ( (j < ml) and (!(k < hm) or (B[j] <= C[k])) )
+	for ( Rank i = 0, j = 0, k = 0; ( j < ml ) or ( k < hm ); ) {
+		if ( ( j < ml ) and ( !( k < hm ) or ( B[j] <= C[k] ) ) )
 			A[i++] = B[j++];
-		if ( (k < hm) and (!(j < ml) or (B[j] > C[k])) )
+		if ( ( k < hm ) and ( !( j < ml ) or ( B[j] > C[k] ) ) )
 			A[i++] = C[k++];
 	}
 	delete[] B;
@@ -174,14 +177,14 @@ template<typename T>
 inline void Vector<T>::mergeSort( Rank lo, Rank hi ) {
 	if ( hi - lo < 2 )
 		return;
-	int mi = (lo + hi) >> 1;
+	int mi = ( lo + hi ) >> 1;
 	mergeSort( lo, mi ); mergeSort( mi, hi );
 	merge( lo, mi, hi );
 }
 
 template<typename T>
 inline Rank Vector<T>::partition( Rank lo, Rank hi ) {
-	v_swap<T>( _elem[lo], _elem[(lo + hi) >> 1] );
+	v_swap<T>( _elem[lo], _elem[( lo + hi ) >> 1] );
 	T pivot = _elem[lo];
 	while ( lo < hi ) {
 		while ( lo < hi )
@@ -223,7 +226,7 @@ inline void Vector<T>::selectionSort( Rank lo, Rank hi ) {
 template<typename T>
 inline Rank Vector<T>::binSearch_A( const T & val, Rank lo, Rank hi ) {
 	while ( lo < hi ) {
-		Rank mi = (lo + hi) >> 1;
+		Rank mi = ( lo + hi ) >> 1;
 		if ( val < _elem[mi] )
 			hi = mi;
 		else if ( val > _elem[mi] )
@@ -237,17 +240,17 @@ inline Rank Vector<T>::binSearch_A( const T & val, Rank lo, Rank hi ) {
 template<typename T>
 inline Rank Vector<T>::binSearch_B( const T & val, Rank lo, Rank hi ) {
 	while ( hi - lo > 1 ) {
-		Rank mi = (lo + hi) >> 1;
-		(_elem[mi] > val) ? hi = mi : lo = mi;
+		Rank mi = ( lo + hi ) >> 1;
+		( _elem[mi] > val ) ? hi = mi : lo = mi;
 	}
-	return (val == _elem[lo]) ? lo : -1;
+	return ( val == _elem[lo] ) ? lo : -1;
 }
 
 template<typename T>
 inline Rank Vector<T>::binSearch_C( const T & val, Rank lo, Rank hi ) {
 	while ( lo < hi ) {
-		Rank mi = (lo + hi) >> 1;
-		(_elem[mi] > val) ? hi = mi : lo = mi + 1;
+		Rank mi = ( lo + hi ) >> 1;
+		( _elem[mi] > val ) ? hi = mi : lo = mi + 1;
 	}
 	return --lo;
 }
@@ -375,7 +378,7 @@ inline Rank Vector<T>::deduplicate() {
 	Rank oldSize = _size;
 	Rank i = 1;
 	while ( i < _size ) {
-		(find( _elem[i], 0, i ) > 0) ? remove( i ) : i++;
+		( find( _elem[i], 0, i ) > 0 ) ? remove( i ) : i++;
 	}
 	return oldSize - _size;
 }
@@ -435,6 +438,18 @@ inline Rank Vector<T>::search( const T & val, int searchType ) {
 	return search( val, 0, _size, searchType );
 }
 
+template<typename T>
+inline void Vector<T>::traverse( void( *visit )( T & ) ) {
+	for ( int i = 0; i < _size; i++ )
+		visit( _elem[i] );
+}
+
+template<typename T> template<typename VST>
+inline void Vector<T>::traverse( VST & visit ) {
+	for ( int i = 0; i < _size; i++ )
+		visit( _elem[i] );
+}
+
 
 // swap function
 template<typename T>
@@ -445,13 +460,13 @@ void v_swap( T & a, T & b ) {
 // the max of ( a, b )
 template<typename T>
 const T & v_max( T & a, T & b ) {
-	return (a >= b) ? a : b;
+	return ( a >= b ) ? a : b;
 }
 
 // the min of ( a, b )
 template<typename T>
 const T & v_min( T & a, T & b ) {
-	return (a <= b) ? a : b;
+	return ( a <= b ) ? a : b;
 }
 
 
