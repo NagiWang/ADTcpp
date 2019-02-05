@@ -1,21 +1,31 @@
 ﻿#pragma once
-#ifndef __ADT_LIST__
-#define __ADT_LIST__
+#include "ListNode.h"
 
+template<typename T>
 class List {
+private:
+	Rank _size;
+	Posi<T> header;
+	Posi<T> trailer;
+
+protected:
+	void init();
+
 public:
-	List();
-	~List();
+	List() { init(); }
+	~List() {}
+
+
 };
 
 
-
-List::List() {
+template<typename T>
+inline void List<T>::init() {
+	header = new ListNode<T>;
+	trailer = new ListNode<T>;
+	header->succ = trailer;
+	header->pred = nullptr;
+	trailer->pred = header;
+	trailer->succ = nullptr;
+	_size = 0;
 }
-
-
-List::~List() {
-}
-
-
-#endif // !__ADT_LIST__

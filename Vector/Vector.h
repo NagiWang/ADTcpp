@@ -1,7 +1,4 @@
 ﻿#pragma once
-#ifndef __ADT_VECTOR__
-#define __ADT_VECTOR__
-
 #include <cstdlib>
 
 typedef int Rank;
@@ -469,6 +466,3 @@ template<typename T>
 const T & v_min( T & a, T & b ) {
 	return ( a <= b ) ? a : b;
 };
-
-
-#endif // !__ADT_VECTOR__
