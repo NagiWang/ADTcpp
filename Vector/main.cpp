@@ -6,9 +6,6 @@ template<typename T> void squart( T & a ) {
 	a *= a;
 };
 
-template<typename T> struct Squart {
-	void operator() ( T & val ) { val++; }
-};
 
 int main() {
 	Vector<int> array( 10 );
@@ -51,8 +48,5 @@ int main() {
 		cout << "array[" << i << "] = " << array[i] << "\n";
 	}
 	cout << "the size of array: " << array.size() << endl << endl;
-	int a = 5;
-	Squart<int>()( a );
-	cout << a << endl;
 	return 0;
 }
