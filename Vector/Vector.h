@@ -395,11 +395,12 @@ inline Rank Vector<T>::uniquify() {
 template<typename T>
 inline void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
 	switch ( SortType ) {
-		case 1: mergeSort( lo, hi ); break;
-		case 2: quickSort( lo, hi ); break;
-		case 3: bubbleSort( lo, hi ); break;
-		case 4: bubbleSortPlus( lo, hi ); break;
-		case 5: selectionSort( lo, hi ); break;
+		case 1:  return mergeSort( lo, hi );
+		case 2:  return quickSort( lo, hi );
+		case 3:  return bubbleSort( lo, hi );
+		case 4:  return bubbleSortPlus( lo, hi );
+		case 5:  return selectionSort( lo, hi );
+		default: return mergeSort( lo, hi );
 	}
 }
 
@@ -423,11 +424,11 @@ inline void Vector<T>::unsort() {
 template<typename T>
 inline Rank Vector<T>::search( const T & val, Rank lo, Rank hi, int searchType ) {
 	switch ( searchType ) {
-		case 1: return binSearch_C( val, lo, hi );
-		case 2: return binSearch_B( val, lo, hi );
-		case 3: return binSearch_A( val, lo, hi );
+		case 1:  return binSearch_C( val, lo, hi );
+		case 2:  return binSearch_B( val, lo, hi );
+		case 3:  return binSearch_A( val, lo, hi );
+		default: return binSearch_C( val, lo, hi );
 	}
-	return -1;
 }
 
 template<typename T>
