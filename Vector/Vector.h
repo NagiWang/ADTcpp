@@ -156,15 +156,15 @@ void Vector<T>::bubbleSortPlus( Rank lo, Rank hi ) {
 template<typename T>
 void Vector<T>::merge( Rank lo, Rank mi, Rank hi ) {
 	T * A = _elem + lo;
-	int ml = mi - lo;
-	T * B = new int[ml];
-	for ( Rank i = 0; i < ml; B[i] = A[i++] );
+	int lm = mi - lo;
+	T * B = new int[lm];
+	for ( Rank i = 0; i < lm; B[i] = A[i++] );
 	int hm = hi - mi;
 	T * C = _elem + mi;
-	for ( Rank i = 0, j = 0, k = 0; ( j < ml ) or ( k < hm ); ) {
-		if ( ( j < ml ) and ( !( k < hm ) or ( B[j] <= C[k] ) ) )
+	for ( Rank i = 0, j = 0, k = 0; ( j < lm ) or ( k < hm ); ) {
+		if ( ( j < lm ) and ( !( k < hm ) or ( B[j] <= C[k] ) ) )
 			A[i++] = B[j++];
-		if ( ( k < hm ) and ( !( j < ml ) or ( B[j] > C[k] ) ) )
+		if ( ( k < hm ) and ( !( j < lm ) or ( B[j] > C[k] ) ) )
 			A[i++] = C[k++];
 	}
 	delete[] B;
