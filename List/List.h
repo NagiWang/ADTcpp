@@ -20,7 +20,7 @@ public:
 
 
 template<typename T>
-inline void List<T>::init() {
+void List<T>::init() {
 	header = new ListNode<T>;
 	trailer = new ListNode<T>;
 	header->pred = nullptr;

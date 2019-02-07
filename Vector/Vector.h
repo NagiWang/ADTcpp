@@ -13,7 +13,7 @@ template<typename T>
 class Vector {
 protected:
 	Rank _size;
-	T *  _elem;
+	T * _elem;
 	int  _capacity = 0;
 	void copyFrom( const T * A, Rank lo, Rank hi );  // 复制数组区间 [ lo, hi )
 	void expend();                                   // 扩容
@@ -78,7 +78,7 @@ public:
 };
 
 template<typename T>
-inline void Vector<T>::copyFrom( const T * A, Rank lo, Rank hi ) {
+void Vector<T>::copyFrom( const T * A, Rank lo, Rank hi ) {
 	_elem = new T[_capacity = ( lo + hi ) << 1];
 	_size = 0;
 	for ( int i = lo; i < hi; i++ ) {
@@ -87,7 +87,7 @@ inline void Vector<T>::copyFrom( const T * A, Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline void Vector<T>::expend() {
+void Vector<T>::expend() {
 	if ( _size < _capacity )
 		return;
 	if ( _capacity < DEFAULT_CAPACITY )
@@ -101,7 +101,7 @@ inline void Vector<T>::expend() {
 }
 
 template<typename T>
-inline void Vector<T>::shrink() {
+void Vector<T>::shrink() {
 	if ( _capacity < DEFAULT_CAPACITY or ( _size << 2 ) > _capacity )
 		return;
 	T * oldElem = _elem;
@@ -113,7 +113,7 @@ inline void Vector<T>::shrink() {
 }
 
 template<typename T>
-inline bool Vector<T>::bubble( Rank lo, Rank hi ) {
+bool Vector<T>::bubble( Rank lo, Rank hi ) {
 	bool sorted = true;
 	while ( ++lo < hi ) {
 		if ( _elem[lo - 1] > _elem[lo] ) {
@@ -125,12 +125,12 @@ inline bool Vector<T>::bubble( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline void Vector<T>::bubbleSort( Rank lo, Rank hi ) {
+void Vector<T>::bubbleSort( Rank lo, Rank hi ) {
 	while ( !bubble( lo, hi-- ) );
 }
 
 template<typename T>
-inline void Vector<T>::bubbleSortPlus( Rank lo, Rank hi ) {
+void Vector<T>::bubbleSortPlus( Rank lo, Rank hi ) {
 	int left = lo;
 	int right = hi - 1;
 	bool sorted = false;
@@ -154,7 +154,7 @@ inline void Vector<T>::bubbleSortPlus( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline void Vector<T>::merge( Rank lo, Rank mi, Rank hi ) {
+void Vector<T>::merge( Rank lo, Rank mi, Rank hi ) {
 	T * A = _elem + lo;
 	int ml = mi - lo;
 	T * B = new int[ml];
@@ -171,7 +171,7 @@ inline void Vector<T>::merge( Rank lo, Rank mi, Rank hi ) {
 }
 
 template<typename T>
-inline void Vector<T>::mergeSort( Rank lo, Rank hi ) {
+void Vector<T>::mergeSort( Rank lo, Rank hi ) {
 	if ( hi - lo < 2 )
 		return;
 	int mi = ( lo + hi ) >> 1;
@@ -180,7 +180,7 @@ inline void Vector<T>::mergeSort( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::partition( Rank lo, Rank hi ) {
+Rank Vector<T>::partition( Rank lo, Rank hi ) {
 	v_swap<T>( _elem[lo], _elem[( lo + hi ) >> 1] );
 	T pivot = _elem[lo];
 	while ( lo < hi ) {
@@ -199,7 +199,7 @@ inline Rank Vector<T>::partition( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline void Vector<T>::quickSort( Rank lo, Rank hi ) {
+void Vector<T>::quickSort( Rank lo, Rank hi ) {
 	if ( hi - lo < 2 )
 		return;
 	Rank mi = partition( lo, hi - 1 );
@@ -207,7 +207,7 @@ inline void Vector<T>::quickSort( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline void Vector<T>::selectionSort( Rank lo, Rank hi ) {
+void Vector<T>::selectionSort( Rank lo, Rank hi ) {
 	while ( lo < hi ) {
 		Rank index = lo;
 		Rank max_index = lo;
@@ -221,7 +221,7 @@ inline void Vector<T>::selectionSort( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::binSearch_A( const T & val, Rank lo, Rank hi ) {
+Rank Vector<T>::binSearch_A( const T & val, Rank lo, Rank hi ) {
 	while ( lo < hi ) {
 		Rank mi = ( lo + hi ) >> 1;
 		if ( val < _elem[mi] )
@@ -235,7 +235,7 @@ inline Rank Vector<T>::binSearch_A( const T & val, Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::binSearch_B( const T & val, Rank lo, Rank hi ) {
+Rank Vector<T>::binSearch_B( const T & val, Rank lo, Rank hi ) {
 	while ( hi - lo > 1 ) {
 		Rank mi = ( lo + hi ) >> 1;
 		( _elem[mi] > val ) ? hi = mi : lo = mi;
@@ -244,7 +244,7 @@ inline Rank Vector<T>::binSearch_B( const T & val, Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::binSearch_C( const T & val, Rank lo, Rank hi ) {
+Rank Vector<T>::binSearch_C( const T & val, Rank lo, Rank hi ) {
 	while ( lo < hi ) {
 		Rank mi = ( lo + hi ) >> 1;
 		( _elem[mi] > val ) ? hi = mi : lo = mi + 1;
@@ -253,12 +253,12 @@ inline Rank Vector<T>::binSearch_C( const T & val, Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline Vector<T>::Vector() {
+Vector<T>::Vector() {
 	_elem = new int[_capacity = DEFAULT_CAPACITY];
 }
 
 template<typename T>
-inline Vector<T>::Vector( int length ) {
+Vector<T>::Vector( int length ) {
 	_capacity = DEFAULT_CAPACITY;
 	while ( length > _capacity ) {
 		_capacity <<= 1;
@@ -268,7 +268,7 @@ inline Vector<T>::Vector( int length ) {
 }
 
 template<typename T>
-inline Vector<T>::Vector( int length, int val ) {
+Vector<T>::Vector( int length, int val ) {
 	_capacity = DEFAULT_CAPACITY;
 	while ( length > _capacity ) {
 		_capacity <<= 1;
@@ -281,12 +281,12 @@ inline Vector<T>::Vector( int length, int val ) {
 }
 
 template<typename T>
-inline T & Vector<T>::operator[]( Rank index ) {
+T & Vector<T>::operator[]( Rank index ) {
 	return _elem[index];
 }
 
 template<typename T>
-inline T & Vector<T>::operator=( const Vector<T> & vec ) {
+T & Vector<T>::operator=( const Vector<T> & vec ) {
 	if ( _elem )
 		delete[] _elem;
 	copyFrom( vec._elem, 0, vec.size() );
@@ -294,7 +294,7 @@ inline T & Vector<T>::operator=( const Vector<T> & vec ) {
 }
 
 template<typename T>
-inline void Vector<T>::insert( Rank index, const T & val ) {
+void Vector<T>::insert( Rank index, const T & val ) {
 	expend();
 	for ( int i = _size; i > index; i-- ) {
 		_elem[i] = _elem[i - 1];
@@ -304,14 +304,14 @@ inline void Vector<T>::insert( Rank index, const T & val ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::push_back( const T & val ) {
+Rank Vector<T>::push_back( const T & val ) {
 	expend();
 	_elem[++_size] = val;
 	return _size - 1;
 }
 
 template<typename T>
-inline void Vector<T>::remove( Rank lo, Rank hi ) {
+void Vector<T>::remove( Rank lo, Rank hi ) {
 	if ( lo == hi )
 		return;
 	while ( hi < _size ) {
@@ -322,14 +322,14 @@ inline void Vector<T>::remove( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline const T & Vector<T>::remove( Rank index ) {
+const T & Vector<T>::remove( Rank index ) {
 	T val = _elem[index];
 	remove( index, index + 1 );
 	return val;
 }
 
 template<typename T>
-inline bool Vector<T>::isordered( bool ascending ) const {
+bool Vector<T>::isordered( bool ascending ) const {
 	if ( _size < 2 )
 		return true;
 	if ( ascending ) {
@@ -347,7 +347,7 @@ inline bool Vector<T>::isordered( bool ascending ) const {
 }
 
 template<typename T>
-inline Rank Vector<T>::find( const T & val, Rank lo, Rank hi ) {
+Rank Vector<T>::find( const T & val, Rank lo, Rank hi ) {
 	for ( int i = lo; i < hi; i++ ) {
 		if ( _elem[i] == val )
 			return i;
@@ -356,7 +356,7 @@ inline Rank Vector<T>::find( const T & val, Rank lo, Rank hi ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::findRemove( const T & val ) {
+Rank Vector<T>::findRemove( const T & val ) {
 	for ( int i = 0; i < _size; i++ ) {
 		if ( _elem == val ) {
 			int index = i + 1;
@@ -371,7 +371,7 @@ inline Rank Vector<T>::findRemove( const T & val ) {
 }
 
 template<typename T>
-inline Rank Vector<T>::deduplicate() {
+Rank Vector<T>::deduplicate() {
 	Rank oldSize = _size;
 	Rank i = 1;
 	while ( i < _size ) {
@@ -381,7 +381,7 @@ inline Rank Vector<T>::deduplicate() {
 }
 
 template<typename T>
-inline Rank Vector<T>::uniquify() {
+Rank Vector<T>::uniquify() {
 	Rank i = 0, j = 0;
 	while ( ++j < _size ) {
 		if ( _elem[i] != _elem[j] )
@@ -393,7 +393,7 @@ inline Rank Vector<T>::uniquify() {
 }
 
 template<typename T>
-inline void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
+void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
 	switch ( SortType ) {
 		case 1:  return mergeSort( lo, hi );
 		case 2:  return quickSort( lo, hi );
@@ -405,24 +405,24 @@ inline void Vector<T>::sort( Rank lo, Rank hi, int SortType ) {
 }
 
 template<typename T>
-inline void Vector<T>::sort( int SortType ) {
+void Vector<T>::sort( int SortType ) {
 	sort( 0, _size, SortType );
 }
 
 template<typename T>
-inline void Vector<T>::unsort( Rank lo, Rank hi ) {
+void Vector<T>::unsort( Rank lo, Rank hi ) {
 	for ( int i = _size; i > lo; i-- ) {
 		v_swap<T>( _elem[i - 1], _elem[std::rand() % i] );
 	}
 }
 
 template<typename T>
-inline void Vector<T>::unsort() {
+void Vector<T>::unsort() {
 	unsort( 0, _size );
 }
 
 template<typename T>
-inline Rank Vector<T>::search( const T & val, Rank lo, Rank hi, int searchType ) {
+Rank Vector<T>::search( const T & val, Rank lo, Rank hi, int searchType ) {
 	switch ( searchType ) {
 		case 1:  return binSearch_C( val, lo, hi );
 		case 2:  return binSearch_B( val, lo, hi );
@@ -432,19 +432,19 @@ inline Rank Vector<T>::search( const T & val, Rank lo, Rank hi, int searchType )
 }
 
 template<typename T>
-inline Rank Vector<T>::search( const T & val, int searchType ) {
+Rank Vector<T>::search( const T & val, int searchType ) {
 	return search( val, 0, _size, searchType );
 }
 
 template<typename T>
-inline void Vector<T>::traverse( void( *visit )( T & ) ) {
+void Vector<T>::traverse( void( *visit )( T & ) ) {
 	for ( int i = 0; i < _size; i++ )
 		visit( _elem[i] );
 }
 
 template<typename T>
 template<typename VST>
-inline void Vector<T>::traverse( VST & visit ) {
+void Vector<T>::traverse( VST & visit ) {
 	for ( int i = 0; i < _size; i++ )
 		visit( _elem[i] );
 };

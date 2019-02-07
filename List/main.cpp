@@ -9,6 +9,5 @@ int main() {
 	cout << a->data << endl;
 	a->succ = new ListNode<int>( 6, a );
 	auto b = a->succ;
-
 	cout << b->insertAsPred( 7 )->data << endl;
 }
