@@ -15,7 +15,6 @@ public:
 	List() { init(); }
 	~List() {}
 
-
 };
 
 
