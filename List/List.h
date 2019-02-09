@@ -16,6 +16,9 @@ public:
 	~List() {}
 
 	Posi<T> first() const { return header->succ; }
+	Posi<T> last() const { return trailer->pred; }
+
+	T & operator[]( Rank index ) const;
 
 };
 
@@ -29,5 +32,13 @@ void List<T>::init() {
 	trailer->pred = header;
 	trailer->succ = nullptr;
 	_size = 0;
+}
+
+template<typename T>
+T & List<T>::operator[]( Rank index ) const {
+	Posi<T> p = first();
+	while ( index-- > 0 )
+		p = p->succ;
+	return p->data;
 }
 
