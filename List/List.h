@@ -13,14 +13,10 @@ protected:
 
 public:
 	List() { init(); }
-	List( const List<T> & L );
 	~List() {}
 
 };
 
-template<typename T>
-List<T>::List( const List<T> & L ) {
-}
 
 template<typename T>
 void List<T>::init() {
