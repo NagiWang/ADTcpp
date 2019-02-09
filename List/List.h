@@ -15,6 +15,8 @@ public:
 	List() { init(); }
 	~List() {}
 
+	Posi<T> first() const { return header->succ; }
+
 };
 
 
