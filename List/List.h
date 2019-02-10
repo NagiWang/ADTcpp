@@ -64,8 +64,7 @@ void List<T>::copyNodes( Posi<T> p, Rank index ) {
 template<typename T>
 T & List<T>::operator[]( Rank index ) const {
 	Posi<T> p = first();
-	while ( index-- )
-		p = p->succ;
+	while ( index-- ) p = p->succ;
 	return p->data;
 }
 
