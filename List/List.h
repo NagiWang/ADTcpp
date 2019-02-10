@@ -10,6 +10,7 @@ private:
 
 protected:
 	void init();
+	Rank clear();
 	void copyNodes( Posi<T> p, Rank index );
 
 public:
@@ -50,6 +51,14 @@ void List<T>::init() {
 	trailer->pred = header;
 	trailer->succ = nullptr;
 	_size = 0;
+}
+
+template<typename T>
+Rank List<T>::clear() {
+	Rank oldSize = _size;
+	while ( _size )
+		remove( header->succ );
+	return oldSize;
 }
 
 template<typename T>
