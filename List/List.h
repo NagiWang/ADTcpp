@@ -19,7 +19,7 @@ public:
 	List( const List<T> & L, Rank index, Rank n ) { copyNodes( L[index], n ); }
 	List( Posi<T> p, Rank n ) { copyNodes( p, n ); }
 
-	~List() {}
+	~List() { clear(); delete header, trailer; }
 
 	Rank size() const { return _size; }
 	bool empty() const { return _size <= 0; }
