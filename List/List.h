@@ -80,7 +80,7 @@ T & List<T>::operator[]( Rank index ) const {
 
 template<typename T>
 Posi<T> List<T>::find( const T & val, Posi<T> p, Rank n ) {
-	while ( n-- ) {
+	while ( --n ) {
 		if ( val == ( p = p->pred )->data )
 			return p;
 	}
@@ -89,7 +89,7 @@ Posi<T> List<T>::find( const T & val, Posi<T> p, Rank n ) {
 
 template<typename T>
 Posi<T> List<T>::find( const T & val ) {
-	return find( val, header, _size );
+	return find( val, trailer, _size );
 }
 
 template<typename T>

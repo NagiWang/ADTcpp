@@ -19,6 +19,7 @@ int main() {
 	for ( int i = 0; i < 10; i++ ) {
 		cout << ( *pL )[i] << endl;
 	}
+	cout << ( *pL ).find(16) << endl;
 	delete pL;
 	return 0;
 }
