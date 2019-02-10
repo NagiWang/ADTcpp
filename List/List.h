@@ -109,7 +109,7 @@ Posi<T> List<T>::inserSucc( Posi<T> p, const T & val ) {
 
 template<typename T>
 const T List<T>::remove( Posi<T> p ) {
-	T val = p.data;
+	T val = p->data;
 	p->pred->succ = p->succ;
 	p->succ->pred = p->pred;
 	delete p;
