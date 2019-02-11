@@ -41,7 +41,9 @@ public:
 	T remove( Posi<T> p );                          // 删除 p 节点
 	Rank deduplicate();                             // 去重
 
+	// 遍历
 	void traverse( void( *visit )( T & ) );
+	template<typename VST> void traverse( VST & visit );
 
 };
 
@@ -146,6 +148,12 @@ Rank List<T>::deduplicate() {
 
 template<typename T>
 void List<T>::traverse( void( *visit )( T & ) ) {
+	for ( Posi<T> p = header->succ; p != trailer; p = p->succ )
+		visit( p->data );
+}
+
+template<typename T> template<typename VST>
+void List<T>::traverse( VST & visit ) {
 	for ( Posi<T> p = header->succ; p != trailer; p = p->succ )
 		visit( p->data );
 }
