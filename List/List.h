@@ -40,6 +40,7 @@ public:
 
 	T remove( Posi<T> p );                          // 删除 p 节点
 	Rank deduplicate();                             // 去重
+	bool disortered();                              // 升序判定
 
 	// 遍历
 	void traverse( void( *visit )( T & ) );
@@ -144,6 +145,18 @@ Rank List<T>::deduplicate() {
 		q ? remove( q ) : ++index;
 	}
 	return oldSize - _size;
+}
+
+template<typename T>
+bool List<T>::disortered() {
+	if ( _size < 2 )
+		return true;
+	Posi<T> p = header->succ;
+	while ( p and ( p->succ != trailer ) ) {
+		if ( p->data > ( p->succ )->data )
+			return false;
+	}
+	return true;
 }
 
 template<typename T>
