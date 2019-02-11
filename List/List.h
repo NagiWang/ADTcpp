@@ -37,7 +37,8 @@ public:
 	Posi<T> inserPred( Posi<T> p, const T & val );
 	Posi<T> inserSucc( Posi<T> p, const T & val );
 
-	const T remove( Posi<T> p );
+	T remove( Posi<T> p );
+	Rank deduplicate();
 
 };
 
@@ -117,7 +118,7 @@ Posi<T> List<T>::inserSucc( Posi<T> p, const T & val ) {
 }
 
 template<typename T>
-const T List<T>::remove( Posi<T> p ) {
+T List<T>::remove( Posi<T> p ) {
 	T val = p->data;
 	p->pred->succ = p->succ;
 	p->succ->pred = p->pred;
@@ -126,3 +127,16 @@ const T List<T>::remove( Posi<T> p ) {
 	return val;
 }
 
+template<typename T>
+Rank List<T>::deduplicate() {
+	if ( _size < 2 )
+		return 0;
+	int oldSize = _size;
+	Posi<T> p = header;
+	Rank index = 0;
+	while ( ( p = p.succ ) != trailer ) {
+		Posi<T> q = find( p->data, r, p );
+		q ? remove( q ) : ++index;
+	}
+	return oldSize - _size;
+}
