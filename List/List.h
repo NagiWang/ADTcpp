@@ -70,7 +70,7 @@ Rank List<T>::clear() {
 template<typename T>
 void List<T>::copyNodes( Posi<T> p, Rank index ) {
 	init();
-	while ( n-- ) {
+	while ( index-- ) {
 		inserAsLast( p->data );
 		p = p->succ;
 	}
@@ -139,7 +139,7 @@ Rank List<T>::deduplicate() {
 	int oldSize = _size;
 	Posi<T> p = header;
 	Rank index = 0;
-	while ( ( p = p.succ ) != trailer ) {
+	while ( ( p = p->succ ) != trailer ) {
 		Posi<T> q = find( p->data, r, p );
 		q ? remove( q ) : ++index;
 	}
