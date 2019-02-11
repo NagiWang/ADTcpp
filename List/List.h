@@ -143,3 +143,9 @@ Rank List<T>::deduplicate() {
 	}
 	return oldSize - _size;
 }
+
+template<typename T>
+void List<T>::traverse( void( *visit )( T & ) ) {
+	for ( Posi<T> p = header->succ; p != trailer; p = p->succ )
+		visit( p->data );
+}
