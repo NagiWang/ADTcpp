@@ -12,6 +12,7 @@ protected:
 	void init();
 	Rank clear();
 	void copyNodes( Posi<T> p, Rank index );
+	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T>q, Rank m );
 
 public:
 	// 构造
@@ -75,6 +76,22 @@ void List<T>::copyNodes( Posi<T> p, Rank index ) {
 		inserAsLast( p->data );
 		p = p->succ;
 	}
+}
+
+template<typename T>
+void List<T>::merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m ) {
+	Posi<T> pp = p->succ;
+	while ( m > 0 ) {
+		if ( n > 0 and ( p->data <= q->data ) ) {
+			if ( q == ( p = p->succ ) ) {
+				--n; break;
+			}
+		} else {
+			inserPred( p, L.remove( ( q = q->succ )->pred ) );
+			--m;
+		}
+	}
+	p = pp->succ;
 }
 
 template<typename T>
