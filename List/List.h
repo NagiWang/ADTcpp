@@ -4,9 +4,9 @@
 template<typename T>
 class List {
 private:
-	Rank _size;
-	Posi<T> header;
-	Posi<T> trailer;
+	Rank _size;       // List 规模
+	Posi<T> header;   // 首哨兵节点
+	Posi<T> trailer;  // 尾哨兵节点
 
 protected:
 	void init();
@@ -14,31 +14,34 @@ protected:
 	void copyNodes( Posi<T> p, Rank index );
 
 public:
+	// 构造
 	List() { init(); }
 	List( const List<T> & L ) { copyNodes( L.first(), L._size ); }
 	List( const List<T> & L, Rank index, Rank n ) { copyNodes( L[index], n ); }
 	List( Posi<T> p, Rank n ) { copyNodes( p, n ); }
-
+	// 析构
 	~List() { clear(); delete header, trailer; }
 
-	Rank size() const { return _size; }
-	bool empty() const { return _size <= 0; }
+	Rank size() const { return _size; }             // List 规模（ 不包含哨兵节点 ）
+	bool empty() const { return _size <= 0; }       // 判空
 
-	Posi<T> first() const { return header->succ; }
-	Posi<T> last() const { return trailer->pred; }
+	Posi<T> first() const { return header->succ; }  // 返回首节点
+	Posi<T> last() const { return trailer->pred; }  // 返回尾节点
 
-	T & operator[]( Rank index ) const;
+	T & operator[]( Rank index ) const;             // 寻秩访问（ 仅可读 ）
 
 	Posi<T> find( const T & val, Posi<T> p, Rank n );
-	Posi<T> find( const T & val );
+	Posi<T> find( const T & val );                  // 搜寻元素 val
 
-	Posi<T> inserAsFirst( const T & val );
-	Posi<T> inserAsLast( const T & val );
-	Posi<T> inserPred( Posi<T> p, const T & val );
-	Posi<T> inserSucc( Posi<T> p, const T & val );
+	Posi<T> inserAsFirst( const T & val );          // 插入为首节点
+	Posi<T> inserAsLast( const T & val );           // 插入为尾节点
+	Posi<T> inserPred( Posi<T> p, const T & val );  // 插入为 p 的前驱
+	Posi<T> inserSucc( Posi<T> p, const T & val );  // 插入为 p 的后继
 
-	T remove( Posi<T> p );
-	Rank deduplicate();
+	T remove( Posi<T> p );                          // 删除 p 节点
+	Rank deduplicate();                             // 去重
+
+	void traverse( void( *visit )( T & ) );
 
 };
 
