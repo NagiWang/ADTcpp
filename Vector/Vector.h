@@ -65,14 +65,14 @@ public:
 	void sort( int SortType = 1 );                       // 全局排序
 	void unsort( Rank lo, Rank hi );                     // 随机置乱 Vector
 	void unsort();
-	// Sort Function( 1:BinarySearch_C(default),
-	//                2:BinarySearch_B,
-	//                3:BinarySearch_A,
-	//                4:FibonacciSearch)
+	// Search Function( 1:BinarySearch_C(default),
+	//                  2:BinarySearch_B,
+	//                  3:BinarySearch_A,
+	//                  !TODO: 4:FibonacciSearch )
 	Rank search( const T & val, Rank lo, Rank hi, int searchType = 1 );
 	Rank search( const T & val, int searchType = 1 );
 
-	void traverse( void( *visit )( T & ) );                // 使用函数指针遍历（只读或局部修改）
+	void traverse( void( *visit )( T & ) );                // 使用函数指针遍历
 	template<typename VST> void traverse( VST & visit );   // 使用函数对象遍历
 
 };
