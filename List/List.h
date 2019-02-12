@@ -9,10 +9,11 @@ private:
 	Posi<T> trailer;  // 尾哨兵节点
 
 protected:
-	void init();
-	Rank clear();
+	void init();      // 初始化 List
+	Rank clear();     // 清除 List
 	void copyNodes( Posi<T> p, Rank index );
-	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T>q, Rank m );
+	// 归并两个有序 List
+	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m );
 
 public:
 	// 构造
