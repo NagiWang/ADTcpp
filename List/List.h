@@ -16,12 +16,12 @@ protected:
 	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m );
 
 public:
-	// 构造
+	// 构造 List
 	List() { init(); }
 	List( const List<T> & L ) { copyNodes( L.first(), L._size ); }
 	List( const List<T> & L, Rank index, Rank n ) { copyNodes( L[index], n ); }
 	List( Posi<T> p, Rank n ) { copyNodes( p, n ); }
-	// 析构
+	// 析构 List
 	~List() { clear(); delete header, trailer; }
 
 	Rank size() const { return _size; }             // List 规模（ 不包含哨兵节点 ）
