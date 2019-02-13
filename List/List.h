@@ -134,6 +134,11 @@ Posi<T> List<T>::find( const T & val ) const {
 }
 
 template<typename T>
+Posi<T> List<T>::search( const T & val, Posi<T> p, Rank n ) const {
+	return Posi<T>();
+}
+
+template<typename T>
 Posi<T> List<T>::inserAsFirst( const T & val ) {
 	_size++;
 	return header->insertAsSucc( val );
