@@ -34,8 +34,10 @@ public:
 
 	T & operator[]( Rank index ) const;             // 寻秩访问（ 仅可读 ）
 
-	Posi<T> find( const T & val, Posi<T> p, Rank n );
-	Posi<T> find( const T & val );                  // 无序 List 查找
+	Posi<T> find( const T & val, Posi<T> p, Rank n ) const;
+	Posi<T> find( const T & val ) const;            // 无序 List 查找
+	Posi<T> search( const T & val, Posi<T> p, Rank n ) const;
+
 
 	Posi<T> inserAsFirst( const T & val );          // 插入为首节点
 	Posi<T> inserAsLast( const T & val );           // 插入为尾节点
@@ -118,7 +120,7 @@ T & List<T>::operator[]( Rank index ) const {
 }
 
 template<typename T>
-Posi<T> List<T>::find( const T & val, Posi<T> p, Rank n ) {
+Posi<T> List<T>::find( const T & val, Posi<T> p, Rank n ) const {
 	while ( --n ) {
 		if ( val == ( p = p->pred )->data )
 			return p;
@@ -127,7 +129,7 @@ Posi<T> List<T>::find( const T & val, Posi<T> p, Rank n ) {
 }
 
 template<typename T>
-Posi<T> List<T>::find( const T & val ) {
+Posi<T> List<T>::find( const T & val ) const {
 	return find( val, trailer, _size );
 }
 
