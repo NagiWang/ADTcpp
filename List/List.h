@@ -44,6 +44,7 @@ public:
 
 	T remove( Posi<T> p );                          // 删除 p 节点
 	Rank deduplicate();                             // 无序 List 去重
+	Rank uniquify();                                // 有序 List 去重
 	bool disortered();                              // 升序判定
 
 	// 遍历
@@ -168,12 +169,27 @@ template<typename T>
 Rank List<T>::deduplicate() {
 	if ( _size < 2 )
 		return 0;
-	int oldSize = _size;
+	Rank oldSize = _size;
 	Posi<T> p = header;
 	Rank index = 0;
 	while ( ( p = p->succ ) != trailer ) {
-		Posi<T> q = find( p->data, r, p );
+		Posi<T> q = find( p->data, index, p );
 		q ? remove( q ) : ++index;
+	}
+	return oldSize - _size;
+}
+
+template<typename T>
+Rank List<T>::uniquify() {
+	if ( _size < 2 )
+		return 0;
+	Rank oldSize = _size;
+	Posi<T> p = first(), q;
+	while ( q = p->succ ) {
+		if ( p->data != q->data )
+			p = q;
+		else
+			remove( q );
 	}
 	return oldSize - _size;
 }
