@@ -14,6 +14,8 @@ protected:
 	void copyNodes( Posi<T> p, Rank index );
 	// 归并两个有序 List
 	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m );
+	void mergeSort( Posi<T> & p, Rank n );          // 归并排序
+
 
 public:
 	// 构造 List
@@ -41,7 +43,7 @@ public:
 	Posi<T> inserSucc( Posi<T> p, const T & val );  // 插入为 p 的后继
 
 	T remove( Posi<T> p );                          // 删除 p 节点
-	Rank deduplicate();                             // 去重
+	Rank deduplicate();                             // 无序 List 去重
 	bool disortered();                              // 升序判定
 
 	// 遍历
@@ -93,6 +95,17 @@ void List<T>::merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m ) {
 		}
 	}
 	p = pp->succ;
+}
+
+template<typename T>
+void List<T>::mergeSort( Posi<T> & p, Rank n ) {
+	if ( n < 2 )
+		return;
+	Rank m = n >> 1;
+	Posi<T> q = p;
+	for ( Rank i = 0; i < m; i++ ) { q = q->succ; }
+	mergeSort( p, m ); mergeSort( q, n - m );
+	merge( p, m, *this, q, n - m );
 }
 
 template<typename T>
