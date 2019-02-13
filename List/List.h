@@ -37,6 +37,7 @@ public:
 	Posi<T> find( const T & val, Posi<T> p, Rank n ) const;
 	Posi<T> find( const T & val ) const;            // 无序 List 查找
 	Posi<T> search( const T & val, Posi<T> p, Rank n ) const;
+	Posi<T> search( const T & val ) const;          // 有序 List 查找
 
 
 	Posi<T> inserAsFirst( const T & val );          // 插入为首节点
@@ -135,7 +136,16 @@ Posi<T> List<T>::find( const T & val ) const {
 
 template<typename T>
 Posi<T> List<T>::search( const T & val, Posi<T> p, Rank n ) const {
-	return Posi<T>();
+	while ( --n >= 0 ) {
+		if ( ( ( p = p->pred )->data ) <= val )
+			break;
+	}
+	return p;
+}
+
+template<typename T>
+Posi<T> List<T>::search( const T & val ) const {
+	search( val, trailer, _size );
 }
 
 template<typename T>
