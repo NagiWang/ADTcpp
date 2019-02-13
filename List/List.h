@@ -35,7 +35,7 @@ public:
 	T & operator[]( Rank index ) const;             // 寻秩访问（ 仅可读 ）
 
 	Posi<T> find( const T & val, Posi<T> p, Rank n );
-	Posi<T> find( const T & val );                  // 搜寻元素 val
+	Posi<T> find( const T & val );                  // 无序 List 查找
 
 	Posi<T> inserAsFirst( const T & val );          // 插入为首节点
 	Posi<T> inserAsLast( const T & val );           // 插入为尾节点
