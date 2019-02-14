@@ -95,9 +95,9 @@ void List<T>::copyNodes( Posi<T> p, Rank index ) {
 
 template<typename T>
 void List<T>::merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m ) {
-	Posi<T> pp = p->succ;
+	Posi<T> pp = p->pred;
 	while ( m > 0 ) {
-		if ( ( n > 0 ) and ( p->data <= q->data ) ) {
+		if ( ( n > 0 ) && ( p->data <= q->data ) ) {
 			if ( q == ( p = p->succ ) ) { --n; break; }
 		} else {
 			inserPred( p, L.remove( ( q = q->succ )->pred ) );
