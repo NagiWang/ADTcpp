@@ -15,13 +15,16 @@ protected:
 	// 归并两个有序 List
 	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m );
 	void mergeSort( Posi<T> & p, Rank n );          // 归并排序
+	void insertionSort( Posi<T> p, Rank n );
 
+	Posi<T> selectMax( Posi<T> p, Rank n );   // 选择最大值所在的节点
+	void selectionSort( Posi<T> p, Rank n );        // 选择排序
 
 public:
 	// 构造 List
 	List() { init(); }
 	List( const List<T> & L ) { copyNodes( L.first(), L._size ); }
-	List( const List<T> & L, Rank index, Rank n ) { copyNodes( L[index], n ); }
+	//List( List<T> & L, Rank index, Rank n ) { copyNodes( L[index], n ); }
 	List( Posi<T> p, Rank n ) { copyNodes( p, n ); }
 	// 析构 List
 	~List() { clear(); delete header, trailer; }
@@ -49,6 +52,11 @@ public:
 	Rank deduplicate();                             // 无序 List 去重
 	Rank uniquify();                                // 有序 List 去重
 	bool disortered();                              // 升序判定
+	// Sort Function( 1:MergeSort(default),
+	//                2:InsertionSort,
+	//                3:SelectionSort )
+	void sort( Posi<T> p, Rank n, int sortType = 1 );
+	void sort();
 
 	// 遍历
 	void traverse( void( *visit )( T & ) );
@@ -89,10 +97,8 @@ template<typename T>
 void List<T>::merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m ) {
 	Posi<T> pp = p->succ;
 	while ( m > 0 ) {
-		if ( n > 0 and ( p->data <= q->data ) ) {
-			if ( q == ( p = p->succ ) ) {
-				--n; break;
-			}
+		if ( ( n > 0 ) and ( p->data <= q->data ) ) {
+			if ( q == ( p = p->succ ) ) { --n; break; }
 		} else {
 			inserPred( p, L.remove( ( q = q->succ )->pred ) );
 			--m;
@@ -110,6 +116,35 @@ void List<T>::mergeSort( Posi<T> & p, Rank n ) {
 	for ( Rank i = 0; i < m; i++ ) { q = q->succ; }
 	mergeSort( p, m ); mergeSort( q, n - m );
 	merge( p, m, *this, q, n - m );
+}
+
+template<typename T>
+void List<T>::insertionSort( Posi<T> p, Rank n ) {
+	for ( Rank i = 0; i < n; i++ ) {
+		inserSucc( search( p->data, p, n ), p->data );
+		remove( ( p = p->succ )->pred );
+	}
+}
+
+template<typename T>
+Posi<T> List<T>::selectMax( Posi<T> p, Rank n ) {
+	Posi<T> max_val = p;
+	for ( Posi<T> cur = p; n > 1; n-- )
+		if ( ( cur = cur->succ )->data >= max_val->data )
+			max_val = cur;
+	return max_val;
+}
+
+template<typename T>
+void List<T>::selectionSort( Posi<T> p, Rank n ) {
+	Posi<T> head = p->pred;
+	Posi<T> tail = p;
+	for ( Rank i = 0; i < n; i++ ) { tail = tail->succ; }
+	while ( n > 1 ) {
+		Posi<T> max_val = selectMax( head->succ, n-- );
+		inserPred( tail, remove( max_val ) );
+		tail = tail->pred;
+	}
 }
 
 template<typename T>
@@ -190,7 +225,7 @@ Rank List<T>::deduplicate() {
 	Posi<T> p = header;
 	Rank index = 0;
 	while ( ( p = p->succ ) != trailer ) {
-		Posi<T> q = find( p->data, index, p );
+		Posi<T> q = find( p->data, p, index );
 		q ? remove( q ) : ++index;
 	}
 	return oldSize - _size;
@@ -216,11 +251,26 @@ bool List<T>::disortered() {
 	if ( _size < 2 )
 		return true;
 	Posi<T> p = header->succ;
-	while ( p and ( p->succ != trailer ) ) {
+	while ( p->succ != trailer ) {
 		if ( p->data > ( p->succ )->data )
 			return false;
 	}
 	return true;
+}
+
+template<typename T>
+void List<T>::sort( Posi<T> p, Rank n, int sortType ) {
+	switch ( sortType ) {
+		case 1:  return mergeSort( p, n );
+		case 2:  return insertionSort( p, n );
+		case 3:  return selectionSort( p, n );
+		default: return mergeSort( p, n );
+	}
+}
+
+template<typename T>
+void List<T>::sort() {
+	sort( first(), _size, 1 );
 }
 
 template<typename T>
@@ -233,4 +283,4 @@ template<typename T> template<typename VST>
 void List<T>::traverse( VST & visit ) {
 	for ( Posi<T> p = header->succ; p != trailer; p = p->succ )
 		visit( p->data );
-}
+};

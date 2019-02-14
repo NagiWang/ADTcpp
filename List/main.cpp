@@ -10,16 +10,19 @@ int main() {
 	cout << a->data << endl;
 	a->succ = new ListNode<int>( 6, a );
 	auto b = a->succ;
-	cout << b->insertAsPred( 7 )->data << endl;
+	cout << b->insertAsPred( 7 )->data << endl << endl;
 	delete a, b;
-	List<int> * pL = new List<int>;
+	List<int>  pL;
 	for ( int i = 0; i < 10; i++ ) {
-		( *pL ).inserAsLast( i + 10 );
+		pL.inserAsLast( 10 - i );
 	}
 	for ( int i = 0; i < 10; i++ ) {
-		cout << ( *pL )[i] << endl;
+		cout << pL[i] << endl;
 	}
-	cout << ( *pL ).find(16) << endl;
-	delete pL;
+	cout << endl;
+	pL.sort();
+	for ( int i = 0; i < 10; i++ ) {
+		cout << pL[i] << endl;
+	}
 	return 0;
 }
