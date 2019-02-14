@@ -45,12 +45,12 @@ public:
 	T & operator[]( Rank index );                        // Vector 寻秩访问
 	T & operator=( const Vector<T> & vec );              // Vector 赋值克隆
 
-	Rank size() const { return _size; }                        // 规模
-	bool empty() const { return !_size; }                      // 判空
+	Rank size() { return _size; }                              // 规模
+	bool empty() { return !_size; }                            // 判空
 	void insert( Rank index, const T & val );                  // 插入元素 val
 	Rank push_back( const T & val );                           // 向末尾插入元素 val
 	void remove( Rank lo, Rank hi );                           // 移出区间 [ lo, hi )
-	const T & remove( Rank index );                            // 按秩移除元素
+	T remove( Rank index );                                  // 按秩移除元素
 	bool isordered( bool ascending = true ) const;             // 是否升序排列
 	Rank find( const T & val, Rank lo = 0, Rank hi = _size );  // 遍历查找元素 val
 	Rank findRemove( const T & val );                          // 移除元素 val
@@ -322,7 +322,7 @@ void Vector<T>::remove( Rank lo, Rank hi ) {
 }
 
 template<typename T>
-const T & Vector<T>::remove( Rank index ) {
+T Vector<T>::remove( Rank index ) {
 	T val = _elem[index];
 	remove( index, index + 1 );
 	return val;
