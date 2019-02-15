@@ -9,7 +9,8 @@ int main() {
 		st.push( 10 - i );
 	}
 	for ( int i = 0; i < 10; i++ ) {
-		cout << st.pop() << endl;
+		cout << st.top() << endl;
+		st.pop();
 	}
 	cout << "the stack is empty : " << st.empty() << endl;
 	return 0;
