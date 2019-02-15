@@ -5,6 +5,7 @@ template<typename T>
 class Stack_Vector : public Vector<T> {
 private:
 	template<typename T> using V = Vector<T>;
+
 public:
 	void push( const T & val ) { V<T>::insert( V<T>::size(), val ); }
 
