@@ -1,10 +1,11 @@
-﻿#include "Stack_Vector.h"
-#include <iostream>
+﻿#include <iostream>
+#include "Stack_Vector.h"
+template<typename T> using Stack = Stack_Vector<T>;
 using namespace std;
 
 
 int main() {
-	Stack_Vector<int> st;
+	Stack<int> st;
 	for ( int i = 0; i < 10; i++ ) {
 		st.push( i );
 	}

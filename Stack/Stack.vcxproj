@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Stack_List.h" />
     <ClInclude Include="Stack_Vector.h" />
   </ItemGroup>
   <ItemGroup>

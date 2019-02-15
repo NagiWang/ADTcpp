@@ -14,11 +14,11 @@ protected:
 	void copyNodes( Posi<T> p, Rank index );
 	// 归并两个有序 List
 	void merge( Posi<T> & p, Rank n, List<T> & L, Posi<T> q, Rank m );
-	void mergeSort( Posi<T> & p, Rank n );          // 归并排序
-	void insertionSort( Posi<T> p, Rank n );
+	void mergeSort( Posi<T> & p, Rank n );    // 归并排序
+	void insertionSort( Posi<T> p, Rank n );  // 插入排序
 
 	Posi<T> selectMax( Posi<T> p, Rank n );   // 选择最大值所在的节点
-	void selectionSort( Posi<T> p, Rank n );        // 选择排序
+	void selectionSort( Posi<T> p, Rank n );  // 选择排序
 
 public:
 	// 构造 List
