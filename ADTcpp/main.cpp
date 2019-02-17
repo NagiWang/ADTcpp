@@ -6,9 +6,11 @@ bool Paren( const std::string & str );
 
 int main() {
 	string str;
+	cout << "Running...\n";
 	while ( getline( cin, str ) ) {
 		cout << Paren( str ) << endl;
 	}
+	cout << "Done...\n";
 	return 0;
 }
 
