@@ -12,7 +12,7 @@ int main() {
 		st.push( i );
 	}
 	for ( int i = 0; i < 10; i++ ) {
-		cout << st.top() << endl;
+		cout << st.top() << "\n";
 		st.pop();
 	}
 	cout << "the stack is empty : " << st.empty() << endl;
