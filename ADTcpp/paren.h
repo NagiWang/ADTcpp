@@ -5,5 +5,6 @@
 #include "../Stack/Stack_List.h"
 template<typename T> using Stack = Stack_List<T>;
 
+bool Paren( const std::string & str );
 
 // 括号匹配

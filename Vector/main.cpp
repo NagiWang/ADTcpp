@@ -1,6 +1,9 @@
 ﻿#include <iostream>
 #include "Vector.h"
+#include <random>
 using namespace std;
+using std::default_random_engine;
+using std::uniform_int_distribution;
 
 template<typename T> void squart( T & a ) {
 	a *= a;
@@ -8,9 +11,11 @@ template<typename T> void squart( T & a ) {
 
 
 int main() {
+	default_random_engine e;
+	uniform_int_distribution<unsigned> u( 0, 50 );
 	Vector<int> array( 10 );
 	for ( int i = array.size() - 1; i >= 0; i-- ) {
-		array[9 - i] = std::rand() % 10 - 5;
+		array[9 - i] = u( e );
 		cout << "array[" << 9 - i << "] = " << array[9 - i] << endl;
 	}
 	cout << "the size of array: " << array.size() << "\n\n";
