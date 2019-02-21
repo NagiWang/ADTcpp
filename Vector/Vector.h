@@ -1,5 +1,9 @@
 ﻿#pragma once
 #include <cstdlib>
+#include <random>
+#include <ctime>
+using std::default_random_engine;
+using std::uniform_int_distribution;
 
 typedef int Rank;
 static const int  DEFAULT_CAPACITY = 128;
@@ -411,8 +415,11 @@ void Vector<T>::sort( int SortType ) {
 
 template<typename T>
 void Vector<T>::unsort( Rank lo, Rank hi ) {
-	for ( int i = _size; i > lo; i-- ) {
-		v_swap<T>( _elem[i - 1], _elem[std::rand() % i] );
+	default_random_engine e;
+	e.seed( (int) time( 0 ) );
+	uniform_int_distribution<int> u( lo, hi - 1 );
+	for ( int i = 0; i < hi; ++i ) {
+		v_swap<T>( _elem[i], _elem[u( e )] );
 	}
 }
 
