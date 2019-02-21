@@ -12,9 +12,11 @@ template<typename T> void squart( T & a ) {
 
 
 int main() {
+
 	default_random_engine e;
 	e.seed( (int) time( 0 ) );
 	uniform_int_distribution<unsigned> u( 0, 50 );
+
 	Vector<int> array( 10 );
 	for ( int i = array.size() - 1; i >= 0; i-- ) {
 		array[9 - i] = u( e );
