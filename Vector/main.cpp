@@ -24,13 +24,13 @@ int main() {
 	}
 	cout << "the size of array: " << array.size() << "\n\n";
 	cout << "the array is ordered: " << array.isordered() << "\n\n";
-	//unsort( array );
 	array.sort( 4 );
 	for ( int i = 0; i < array.size(); i++ ) {
 		cout << "array[" << i << "] = " << array[i] << "\n";
 	}
 	cout << "the size of array: " << array.size() << "\n\n";
 	cout << "the array is ordered: " << array.isordered() << "\n\n";
+	// unsort( array );
 	array.unsort();
 	for ( int i = 0; i < array.size(); i++ ) {
 		cout << "array[" << i << "] = " << array[i] << "\n";
