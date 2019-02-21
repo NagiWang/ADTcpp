@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "Vector.h"
 #include <random>
+#include <ctime>
 using namespace std;
 using std::default_random_engine;
 using std::uniform_int_distribution;
@@ -12,6 +13,7 @@ template<typename T> void squart( T & a ) {
 
 int main() {
 	default_random_engine e;
+	e.seed( (int) time( 0 ) );
 	uniform_int_distribution<unsigned> u( 0, 50 );
 	Vector<int> array( 10 );
 	for ( int i = array.size() - 1; i >= 0; i-- ) {
