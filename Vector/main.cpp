@@ -18,9 +18,9 @@ int main() {
 	uniform_int_distribution<unsigned> u( 0, 50 );
 
 	Vector<int> array( 10 );
-	for ( int i = array.size() - 1; i >= 0; i-- ) {
-		array[9 - i] = u( e );
-		cout << "array[" << 9 - i << "] = " << array[9 - i] << endl;
+	for ( int i = 0; i < array.size(); i++ ) {
+		array[i] = u( e );
+		cout << "array[" << i << "] = " << array[i] << endl;
 	}
 	cout << "the size of array: " << array.size() << "\n\n";
 	cout << "the array is ordered: " << array.isordered() << "\n\n";
