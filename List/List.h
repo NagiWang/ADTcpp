@@ -59,7 +59,6 @@ public:
 	void sort();
 	// TODO: UnSort Function
 
-
 	// 遍历
 	void traverse( void( *visit )( T & ) );
 	template<typename VST> void traverse( VST & visit );
