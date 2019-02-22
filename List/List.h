@@ -57,6 +57,8 @@ public:
 	//                3:SelectionSort )
 	void sort( Posi<T> p, Rank n, int sortType = 1 );
 	void sort();
+	// TODO: UnSort Function
+
 
 	// 遍历
 	void traverse( void( *visit )( T & ) );
