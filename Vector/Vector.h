@@ -185,7 +185,10 @@ void Vector<T>::mergeSort( Rank lo, Rank hi ) {
 
 template<typename T>
 Rank Vector<T>::partition( Rank lo, Rank hi ) {
-	v_swap<T>( _elem[lo], _elem[( lo + hi ) >> 1] );
+	default_random_engine e;
+	e.seed( (int) time( 0 ) );
+	uniform_int_distribution<int> u( lo, hi + 1 );
+	v_swap<T>( _elem[lo], _elem[u( e )] );
 	T pivot = _elem[lo];
 	while ( lo < hi ) {
 		while ( lo < hi )
