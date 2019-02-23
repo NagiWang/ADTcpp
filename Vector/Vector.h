@@ -187,7 +187,7 @@ template<typename T>
 Rank Vector<T>::partition( Rank lo, Rank hi ) {
 	default_random_engine e;
 	e.seed( (int) time( 0 ) );
-	uniform_int_distribution<int> u( lo, hi + 1 );
+	uniform_int_distribution<int> u( lo, hi );
 	v_swap<T>( _elem[lo], _elem[u( e )] );
 	T pivot = _elem[lo];
 	while ( lo < hi ) {
