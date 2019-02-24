@@ -119,7 +119,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="compute.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="paren.cpp" />
     <ClCompile Include="paren.h" />
