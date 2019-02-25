@@ -106,7 +106,7 @@ void Vector<T>::expend() {
 
 template<typename T>
 void Vector<T>::shrink() {
-	if ( _capacity < DEFAULT_CAPACITY or ( _size << 2 ) > _capacity )
+	if ( _capacity < DEFAULT_CAPACITY or ( ( _size << 2 ) > _capacity ) )
 		return;
 	T * oldElem = _elem;
 	_elem = new T[_capacity >>= 1];
