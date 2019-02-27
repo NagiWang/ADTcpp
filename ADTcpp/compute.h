@@ -24,10 +24,10 @@ template<typename T>
 void readNumber( char * & p, Stack<T> & stk ) {
 	stk.push( (T) ( *p - '\0' ) );
 	while ( isdigit( *( ++p ) ) ) {
-		stk.push( stk.pop() * 10 + ( *p - '\0' );
+	    stk.push( stk.pop() * 10 + ( *p - '\0' );
 	}
 	if ( *p != '.' )
-		return;
+	    return;
 	T fraction = 1;
 	while ( isdigit( *( ++p ) ) ) {
 		stk.push( stk.pop() + ( *p - '/0' )*( fraction /= 10 ) );
@@ -39,9 +39,9 @@ void append( char * & rpn, T opnd ) {
 	int len = strlen( rpn );
 	char buf[64];
 	if ( T( (int) opnd ) != opnd )
-		sprintf( buf, "%.2f\0", opnd );
+	    sprintf( buf, "%.2f\0", opnd );
 	else
-		sprintf( buf, "%d\0", (int) opnd );
+	    sprintf( buf, "%d\0", (int) opnd );
 	rpn = (char *) realloc( rpn, sizeof( char ) * ( len + strlen( buf ) + 1 );
 	strcat( rpn, buf );
 }
