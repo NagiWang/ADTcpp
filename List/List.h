@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "ListNode.h"
-
+virtual
 template<typename T>
 class List {
 private:
