@@ -9,7 +9,7 @@ template<typename T> using Stack = Stack_List<T>;
 using namespace std;
 
 template<typename T>
-T compute( char * S, char * & RPN ) {
+T compute( char * S, char *& RPN ) {
 	Stack<T> opnd;
 	Stack<char> optr;
 	optr.push( '\0' );
@@ -21,7 +21,7 @@ T compute( char * S, char * & RPN ) {
 }
 
 template<typename T>
-void readNumber( char * & p, Stack<T> & stk ) {
+void readNumber( char *& p, Stack<T> & stk ) {
 	stk.push( (T) ( *p - '\0' ) );
 	while ( isdigit( *( ++p ) ) ) {
 		stk.push( stk.pop() * 10 + ( *p - '\0' );
@@ -30,12 +30,12 @@ void readNumber( char * & p, Stack<T> & stk ) {
 		return;
 	T fraction = 1;
 	while ( isdigit( *( ++p ) ) ) {
-		stk.push( stk.pop() + ( *p - '/0' )*( fraction /= 10 ) );
+		stk.push( stk.pop() + ( *p - '/0' ) * ( fraction /= 10 ) );
 	}
 }
 
 template<typename T>
-void append( char * & rpn, T opnd ) {
+void append( char *& rpn, T opnd ) {
 	int len = strlen( rpn );
 	char buf[64];
 	if ( T( (int) opnd ) != opnd )
@@ -46,7 +46,7 @@ void append( char * & rpn, T opnd ) {
 	strcat( rpn, buf );
 }
 
-void append( char * & rpn, char optr ) {
+void append( char *& rpn, char optr ) {
 	int len = strlen( rpn );
 	rpn = (char *) realloc( rpn, sizeof( char ) * ( len + 3 ) );
 	sprintf( rpn + len, "%c", optr );
