@@ -18,7 +18,7 @@ T compute( char * S, char *& RPN ) {
 			readNumber( s, opnd );
 			append( RPN, opnd.top() );
 		} else {
-			switch ( ) {
+			switch ( orderBetween( optr.top(), ( *S ) ) {
 
 				default: exit( -1 );
 			}
@@ -77,5 +77,5 @@ Op optr2rank( char op ) {
 
 // op1 与 op2 优先级比较
 char orderBetween( char op1, char op2 ) {
-	return Pri[optr2rank( op1 )][optr2rank( op2 )];
+	return Pri[(int) optr2rank( op1 )][(int) optr2rank( op2 )];
 }

@@ -3,7 +3,7 @@
 
 const int N_OPTR = 9;
 
-enum class Operator :int { ADD, SUB, MUL, DIV, POW, FAC, L_P, R_P, EOP };
+enum class Operator : int { ADD, SUB, MUL, DIV, POW, FAC, L_P, R_P, EOP };
 struct OpString {
 	std::string opWord[N_OPTR] {
 		"ADD",
