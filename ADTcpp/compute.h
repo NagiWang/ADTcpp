@@ -16,6 +16,12 @@ T compute( char * S, char *& RPN ) {
 	while ( !optr.empty() ) {
 		if ( isdigit( *S ) ) {
 			readNumber( s, opnd );
+			append( RPN, opnd.top() );
+		} else {
+			switch ( ) {
+
+				default: exit( -1 );
+			}
 		}
 	}
 }
