@@ -59,7 +59,7 @@ void append( char *& rpn, char optr ) {
 	rpn[len + 2] = '\0';
 }
 
-Operator optr2rank( char op ) {
+Op optr2rank( char op ) {
 	switch ( op ) {
 		case '+':  return Op::ADD;
 		case '-':  return Op::SUB;
@@ -75,6 +75,7 @@ Operator optr2rank( char op ) {
 	}
 }
 
+// op1 与 op2 优先级比较
 char orderBetween( char op1, char op2 ) {
 	return Pri[optr2rank( op1 )][optr2rank( op2 )];
 }
