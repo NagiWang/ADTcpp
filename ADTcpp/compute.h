@@ -74,3 +74,7 @@ Operator optr2rank( char op ) {
 			exit( -1 );
 	}
 }
+
+char orderBetween( char op1, char op2 ) {
+	return Pri[optr2rank( op1 )][optr2rank( op2 )];
+}
