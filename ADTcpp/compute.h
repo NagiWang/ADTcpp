@@ -32,14 +32,19 @@ T compute( char * S, char *& RPN ) {
 						char op = optr.pop();
 						append( RPN, op );
 						if ( op == '!' ) {
+							T pOpnd = opnd.pop();
+							opnd.push( calcu<T>( op, pOpnd ) );
+						} else {
 							T pOpnd2 = opnd.pop();
 							T pOpnd1 = opnd.pop();
 							opnd.push( calcu<T>( pOpnd1, op, pOpnd2 ) );
 						}
+						break;
 					}
 				default: exit( -1 );
 			}
 		}
 	}
+	return opnd.pop();
 }
 
