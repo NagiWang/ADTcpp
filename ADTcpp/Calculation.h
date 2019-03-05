@@ -69,8 +69,30 @@ template<typename T>
 T calcu( char op, T b ) {
 	switch ( op ) {
 		case '!':
-			return (T) facI<int>( (int) b );
+			return (T) func::facI<int>( (int) b );
 			break;
+		default:
+			exit( -1 );
+	}
+}
+
+template<typename T>
+T calcu( T a, char op, T b ) {
+	switch ( op ) {
+		case '+':
+			return a + b;
+			break;
+		case '-':
+			return a - b;
+			break;
+		case '*':
+			return a * b;
+			break;
+		case '/':
+			return ( b ) ? ( a / b ) : exit( -1 );
+			break;
+		case '^':
+			return func::powI<int>( (int) a, (int) b );
 		default:
 			exit( -1 );
 	}

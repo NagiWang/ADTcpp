@@ -32,8 +32,9 @@ T compute( char * S, char *& RPN ) {
 						char op = optr.pop();
 						append( RPN, op );
 						if ( op == '!' ) {
-							float Popnd = opnd.pop();
-							opnd.push( calcu );
+							T pOpnd2 = opnd.pop();
+							T pOpnd1 = opnd.pop();
+							opnd.push( calcu<T>( pOpnd1, op, pOpnd2 ) );
 						}
 					}
 				default: exit( -1 );
