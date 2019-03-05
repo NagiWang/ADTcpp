@@ -21,15 +21,18 @@
     <ClCompile Include="paren.h">
       <Filter>头文件</Filter>
     </ClCompile>
-    <ClCompile Include="paren.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="compute.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Operator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Func.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

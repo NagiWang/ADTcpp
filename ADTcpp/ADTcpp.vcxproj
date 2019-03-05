@@ -120,11 +120,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="paren.cpp" />
     <ClCompile Include="paren.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calculation.h" />
     <ClInclude Include="compute.h" />
+    <ClInclude Include="Func.h" />
     <ClInclude Include="Operator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
