@@ -1,8 +1,6 @@
-﻿#include "paren.h"
+﻿#include "compute.h"
 #include <iostream>
 using namespace std;
-
-bool Paren( const std::string & str );
 
 int main() {
 	string str;

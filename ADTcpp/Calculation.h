@@ -1,20 +1,16 @@
 #pragma once
 #include "Operator.h"
 #include "Func.h"
-#include "../Stack/Stack_List.h"
-template<typename T> using Stack = Stack_List<T>;
-// #include "../Stack/Stack_Vector.h"
-// template<typename T> using Stack = Stack_Vector<T>;
+#include "paren.h"
 #include <cstring>
 #include <cstdio>
-using namespace std;
 
 
 template<typename T>
 void readNumber( char *& p, Stack<T> & stk ) {
 	stk.push( (T) ( *p - '\0' ) );
 	while ( isdigit( *( ++p ) ) ) {
-		stk.push( stk.pop() * 10 + ( *p - '\0' );
+		stk.push( stk.pop() * 10 + ( *p - '\0' ) );
 	}
 	if ( *p != '.' )
 		return;
@@ -24,23 +20,23 @@ void readNumber( char *& p, Stack<T> & stk ) {
 	}
 }
 
-template<typename T>
-void append( char *& rpn, T opnd ) {
+
+void append( char *& rpn, float opnd ) {
 	int len = strlen( rpn );
 	char buf[64];
-	if ( T( (int) opnd ) != opnd )
-		sprintf( buf, "%.2f\0", opnd );
+	if ( float( (int) opnd ) != opnd )
+		sprintf_s( buf, 256, "%.2f\0", opnd );
 	else
-		sprintf( buf, "%d\0", (int) opnd );
-	rpn = (char *) realloc( rpn, sizeof( char ) * ( len + strlen( buf ) + 1 );
-	strcat( rpn, buf );
+		sprintf_s( buf, 256, "%d\0", (int) opnd );
+	rpn = (char *) ( realloc( rpn, sizeof( char ) * ( len + strlen( buf ) + 1 ) ) );
+	strcat_s( rpn, 256, buf );
 }
 
 
 void append( char *& rpn, char optr ) {
 	int len = strlen( rpn );
-	rpn = (char *) realloc( rpn, sizeof( char ) * ( len + 3 ) );
-	sprintf( rpn + len, "%c", optr );
+	rpn = (char *) ( realloc( rpn, sizeof( char ) * ( len + 3 ) ) );
+	sprintf_s( ( rpn + len ), 256, "%c", optr );
 	rpn[len + 2] = '\0';
 }
 

@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include "Operator.h"
-#include "../Stack/Stack_List.h"
 #include "Calculation.h"
 using namespace std;
 
@@ -11,10 +9,9 @@ T compute( char * S, char *& RPN ) {
 	optr.push( '\0' );
 	while ( !optr.empty() ) {
 		if ( isdigit( *S ) ) {
-			readNumber<T>( S, opnd );
-			append<T>( RPN, opnd.top() );
-		} else {
-			switch ( orderBetween( optr.top(), ( *S ) ) {
+			readNumber<T>( S, opnd ); append( RPN, opnd.top() );
+		} else
+			switch ( orderBetween( optr.top(), ( *S ) ) ) {
 				case '<':
 					{
 						optr.push( *S );
@@ -43,7 +40,6 @@ T compute( char * S, char *& RPN ) {
 					}
 				default: exit( -1 );
 			}
-		}
 	}
 	return opnd.pop();
 }
