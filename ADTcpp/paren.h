@@ -6,7 +6,7 @@
 #include "../Stack/Stack_List.h"
 template<typename T> using Stack = Stack_List<T>;
 
-bool Paren( const std::string & str ) {
+bool pParen( const std::string & str ) {
 	Stack<char> st;
 	for ( auto val : str ) {
 		switch ( val ) {
