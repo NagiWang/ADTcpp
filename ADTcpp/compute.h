@@ -13,17 +13,17 @@ T compute( char * S, char *& RPN ) {
 		} else
 			switch ( orderBetween( optr.top(), ( *S ) ) ) {
 				case '<':
-					{
+					
 						optr.push( *S );
 						S++;
 						break;
-					}
+					
 				case '=':
-					{
+					
 						optr.pop();
 						S++;
 						break;
-					}
+					
 				case '>':
 					{
 						char op = optr.pop();
