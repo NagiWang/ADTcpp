@@ -15,13 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClInclude Include="pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ADTcpp\Operator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ADTcpp\Calculation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ADTcpp\Func.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ADTcpp\compute.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="paren.h">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="paren.cpp">
+    <ClCompile Include="Calculation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
