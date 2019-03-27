@@ -30,7 +30,7 @@ template<typename T>struct BinNode {
 			 int h = 0, int l = 1,
 			 RBColor c = RB_RED ) :
 		data( e ), parent( p ), lc( lc ), rc( rc ),
-		height( h ), npl( 1 ), color( c ) {}
+		height( h ), npl( l ), color( c ) {}
 
 
 };
