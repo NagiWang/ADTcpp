@@ -16,11 +16,19 @@ template<typename T>struct BinNode {
 	BinNodePosi<T> parent; // 父节点
 	BinNodePosi<T> lc;     // 左节点
 	BinNodePosi<T> rc;     // 右节点
-	int height;
-	int npl;
+	int height;            // 树的高度
+	int npl;               // Null Path Length ( 左氏堆 )
 	RBColor color;
-	BinNode() : parent( nullptr ), lc( nullptr ), rc( nullptr ),
+	BinNode() : data( 0 ), parent( nullptr ), lc( nullptr ), rc( nullptr ),
 		height( 0 ), npl( 1 ), color( RB_RED ) {}
+	BinNode( T e,
+			 BinNodePosi<T> p = nullptr,
+			 BinNodePosi<T> lc = nullptr,
+			 BinNodePosi<T> rc = nullptr,
+			 int h = 0, int l = 1,
+			 RBColor c = RB_RED ) :
+		data( e ), parent( p ), lc( lc ), rc( rc ),
+		height( h ), npl( 1 ), color( c ) {}
 
 
 };
