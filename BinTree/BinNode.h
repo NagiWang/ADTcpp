@@ -7,7 +7,7 @@ template<typename T>
 using BinNodePosi = BinNode<T> *;    // 二叉树结点指针
 
 template<typename T>                 // 节点高度 ( 空树高度为-1 )
-constexpr auto stature( T p ) {
+constexpr int stature( T p ) {
 	return ( ( p ) ? ( p )->height : -1 );
 }
 
