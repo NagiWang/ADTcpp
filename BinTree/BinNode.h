@@ -33,3 +33,12 @@ template<typename T>struct BinNode {
 		height( h ), npl( l ), color( c ) {}
 
 };
+
+template<typename T>
+constexpr bool IsRoot( T x ) { return  ( !x.parent ); }
+
+template<typename T>
+constexpr bool IsLChirld( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->lc ) ); }
+
+template<typename T>
+constexpr bool IsRChirld( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->rc ) ); }
