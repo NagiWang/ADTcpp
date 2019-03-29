@@ -42,3 +42,6 @@ constexpr bool IsLChirld( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->lc
 
 template<typename T>
 constexpr bool IsRChirld( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->rc ) ); }
+
+template<typename T>
+constexpr bool HasParent( T x ) { return ( !IsRoot( x ) ); }
