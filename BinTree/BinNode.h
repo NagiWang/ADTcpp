@@ -38,10 +38,17 @@ template<typename T>
 constexpr bool IsRoot( T x ) { return  ( !x.parent ); }
 
 template<typename T>
-constexpr bool IsLChirld( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->lc ) ); }
+constexpr bool IsLChild( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->lc ) ); }
 
 template<typename T>
-constexpr bool IsRChirld( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->rc ) ); }
+constexpr bool IsRChild( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->rc ) ); }
 
 template<typename T>
 constexpr bool HasParent( T x ) { return ( !IsRoot( x ) ); }
+
+template<typename T>
+constexpr bool HasLChild( T x ) { return x.lc; }
+
+template<typename T>
+constexpr bool HasRChild( T x ) { return x.rc; }
+
