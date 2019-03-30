@@ -35,44 +35,70 @@ template<typename T>struct BinNode {
 };
 
 template<typename T>
-constexpr bool IsRoot( T x ) { return  ( !x.parent ); }
+constexpr bool IsRoot( const T & x ) { return  !( &x ) or !( x.parent ); }
 
 template<typename T>
-constexpr bool IsLChild( T x ) {
-	return ( !IsRoot( x ) and ( &x == x.parent->lc ) );
+constexpr bool IsLChild( const T & x ) {
+	return ( !IsRoot( x ) and ( ( &x ) == ( x.parent->lc ) ) );
 }
 
 template<typename T>
-constexpr bool IsRChild( T x ) {
-	return ( !IsRoot( x ) and ( &x == x.parent->rc ) );
+constexpr bool IsRChild( const T & x ) {
+	return ( !IsRoot( x ) and ( ( &x ) == ( x.parent->rc ) ) );
 }
 
 template<typename T>
-constexpr bool HasParent( T x ) { return ( !IsRoot( x ) ); }
+constexpr bool HasParent( const T & x ) {
+	return ( !IsRoot( x ) );
+}
 
 template<typename T>
-constexpr bool HasLChild( T x ) { return x.lc; }
+constexpr bool HasLChild( const T & x ) { return x.lc; }
 
 template<typename T>
-constexpr bool HasRChild( T x ) { return x.rc; }
+constexpr bool HasRChild( const T & x ) { return x.rc; }
 
 template<typename T>
-constexpr bool HasChild( T x ) {
+constexpr bool HasChild( const T & x ) {
 	return ( HasLChild( x ) or HasRChild( x ) );
 }
 
 template<typename T>
-constexpr bool HasBothChild( T x ) {
+constexpr bool HasBothChild( const T & x ) {
 	return ( HasLChild( x ) and HasRChild( x ) );
 }
 
 template<typename T>
-constexpr bool IsLeaf( T x ) {
+constexpr bool IsLeaf( T  x ) {
 	return !HasChild( x );
 }
 
-template<typename T>
-constexpr bool sibling( T x ) {
-	return ( IsLChild( *x ) ) ? ( x->parent->rc ) : ( x->parent->lc );
+template<typename T>  // 返回兄弟节点
+constexpr auto sibling( const T x ) {
+	if ( !IsRoot( *x ) ) {
+		return  IsLChild( *x )
+			? ( x->parent->rc )
+			: ( x->parent->lc );
+	} else
+		return x;
 }
 
+template<typename T>  // 返回叔叔节点
+constexpr auto uncle( const T x ) {
+	if ( !IsRoot( *( x->parent ) ) and !IsRoot( *( x->parent->parent ) ) ) {
+		return  IsLChild( *( x->parent ) )
+			? ( x->parent->parent->rc )
+			: ( x->parent->parent->lc );
+	} else {
+		return x;
+	}
+}
+
+template<typename T>  // 返回父节点
+constexpr auto FromParentTo( const T & x ) {
+	return IsRoot( x )
+		? ( &x )
+		: ( IsLChild( x )
+			? ( x.parent->lc )
+			: ( x.parent->rc ) );
+}

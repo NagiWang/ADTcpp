@@ -21,6 +21,9 @@
   <ItemGroup>
     <ClInclude Include="BinNode.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{02DC3D3B-4ABA-445D-9B6C-403E7E573F5E}</ProjectGuid>
