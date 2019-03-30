@@ -38,10 +38,14 @@ template<typename T>
 constexpr bool IsRoot( T x ) { return  ( !x.parent ); }
 
 template<typename T>
-constexpr bool IsLChild( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->lc ) ); }
+constexpr bool IsLChild( T x ) {
+	return ( !IsRoot( x ) and ( &x == x.parent->lc ) );
+}
 
 template<typename T>
-constexpr bool IsRChild( T x ) { return ( !IsRoot( x ) and ( &x == x.parent->rc ) ); }
+constexpr bool IsRChild( T x ) {
+	return ( !IsRoot( x ) and ( &x == x.parent->rc ) );
+}
 
 template<typename T>
 constexpr bool HasParent( T x ) { return ( !IsRoot( x ) ); }
@@ -51,4 +55,24 @@ constexpr bool HasLChild( T x ) { return x.lc; }
 
 template<typename T>
 constexpr bool HasRChild( T x ) { return x.rc; }
+
+template<typename T>
+constexpr bool HasChild( T x ) {
+	return ( HasLChild( x ) or HasRChild( x ) );
+}
+
+template<typename T>
+constexpr bool HasBothChild( T x ) {
+	return ( HasLChild( x ) and HasRChild( x ) );
+}
+
+template<typename T>
+constexpr bool IsLeaf( T x ) {
+	return !HasChild( x );
+}
+
+template<typename T>
+constexpr bool sibling( T x ) {
+	return ( IsLChild( *x ) ) ? ( x->parent->rc ) : ( x->parent->lc );
+}
 
