@@ -32,13 +32,19 @@ template<typename T>struct BinNode {
 		data( e ), parent( p ), lc( lc ), rc( rc ),
 		height( h ), npl( l ), color( c ) {}
 
-	BinNodePosi<T> inserAsLc( const T & e );
+	BinNodePosi<T> inserAsLC( const T & e );   // 将 e 插入为当前节点左孩子
+	BinNodePosi<T> inserAsRC( const T & e );   // 将 e 插入为当前节点右孩子
 
 };
 
 template<typename T>
-BinNodePosi<T> BinNode<T>::inserAsLc( const T & e ) {
+BinNodePosi<T> BinNode<T>::inserAsLC( const T & e ) {
 	return lc = new BinNode( e, this );
+}
+
+template<typename T>
+BinNodePosi<T> BinNode<T>::inserAsRC( const T & e ) {
+	return rc = new BinNode( e, this );
 }
 
 template<typename T>
