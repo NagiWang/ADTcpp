@@ -9,9 +9,12 @@ int main() {
 
 	cout << IsRoot( root ) << endl;
 	cout << IsLChild( root ) << endl;
+	cout << HasBothChild( *( root.parent ) ) << endl;
 	cout << sibling( p ) << endl;
 	cout << uncle( p ) << endl;
-	cout << FromParentTo( root ) << endl;
+
+	BinNodePosi<int> q = FromParentTo( root );
+	cout << q << endl;
 	cout << &( *p ) << endl;
 
 	return 0;
