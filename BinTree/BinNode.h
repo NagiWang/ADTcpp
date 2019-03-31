@@ -20,7 +20,7 @@ template<typename T>struct BinNode {
 	BinNodePosi<T> rc;     // 右节点
 	int height;            // 树的高度
 	int npl;               // Null Path Length ( 左氏堆 )
-	RBColor color;
+	RBColor color;         // 节点颜色
 	BinNode() : data( 0 ), parent( nullptr ), lc( nullptr ), rc( nullptr ),
 		height( 0 ), npl( 1 ), color( RB_RED ) {}
 	BinNode( T e,
@@ -32,7 +32,14 @@ template<typename T>struct BinNode {
 		data( e ), parent( p ), lc( lc ), rc( rc ),
 		height( h ), npl( l ), color( c ) {}
 
+	BinNodePosi<T> inserAsLc( const T & e );
+
 };
+
+template<typename T>
+BinNodePosi<T> BinNode<T>::inserAsLc( const T & e ) {
+	return lc = new BinNode( e, this );
+}
 
 template<typename T>
 constexpr bool IsRoot( const BinNode<T> & x ) { return  !( &x ) or !( x.parent ); }
