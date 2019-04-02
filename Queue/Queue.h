@@ -9,3 +9,4 @@ public:
 	T dequeue() { return List<T>::remove( List<T>::first() ); }
 	T & front() { return List<T>::first()->data; }
 };
+
