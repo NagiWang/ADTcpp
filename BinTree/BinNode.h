@@ -59,7 +59,10 @@ BinNode<T>::inserAsRC( const T & e ) {
 }
 
 template<typename T>
-constexpr bool IsRoot( const BinNode<T> & x ) { return  !( &x ) or !( x.parent ); }
+constexpr bool
+IsRoot( const BinNode<T> & x ) {
+	return  !( &x ) or !( x.parent );
+}
 
 template<typename T>
 constexpr bool IsLChild( const BinNode<T> & x ) {
