@@ -16,6 +16,7 @@ int main() {
 	BinNodePosi<int> q = FromParentTo( root );
 	cout << q << endl;
 	cout << &( *p ) << endl;
+	cout << p->Color() << endl;
 
 	return 0;
 }

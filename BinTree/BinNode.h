@@ -11,7 +11,7 @@ constexpr int stature( T p ) {
 	return ( ( p ) ? ( p )->height : -1 );
 }
 
-typedef enum { RB_RED, RB_BLACK } RBColor;  // 节点颜色
+enum class RBColor { r, b };   // 节点颜色
 
 template<typename T>struct BinNode {
 	T data;
@@ -22,15 +22,24 @@ template<typename T>struct BinNode {
 	int npl;               // Null Path Length ( 左氏堆 )
 	RBColor color;         // 节点颜色
 	BinNode() : data( 0 ), parent( nullptr ), lc( nullptr ), rc( nullptr ),
-		height( 0 ), npl( 1 ), color( RB_RED ) {}
+		height( 0 ), npl( 1 ), color( RBColor::r ) {}
 	BinNode( T e,
 			 BinNodePosi<T> p = nullptr,
 			 BinNodePosi<T> lc = nullptr,
 			 BinNodePosi<T> rc = nullptr,
 			 int h = 0, int l = 1,
-			 RBColor c = RB_RED ) :
+			 RBColor c = RBColor::r ) :
 		data( e ), parent( p ), lc( lc ), rc( rc ),
 		height( h ), npl( l ), color( c ) {}
+
+	int Color() {
+		if ( color == RBColor::r )
+			return 0;
+		else if ( color == RBColor::b )
+			return 1;
+		else
+			return -1;
+	}
 
 	BinNodePosi<T> inserAsLC( const T & e );   // 将 e 插入为当前节点左孩子
 	BinNodePosi<T> inserAsRC( const T & e );   // 将 e 插入为当前节点右孩子
