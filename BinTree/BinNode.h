@@ -38,12 +38,14 @@ template<typename T>struct BinNode {
 };
 
 template<typename T>
-BinNodePosi<T> BinNode<T>::inserAsLC( const T & e ) {
+BinNodePosi<T>
+BinNode<T>::inserAsLC( const T & e ) {
 	return lc = new BinNode( e, this );
 }
 
 template<typename T>
-BinNodePosi<T> BinNode<T>::inserAsRC( const T & e ) {
+BinNodePosi<T>
+BinNode<T>::inserAsRC( const T & e ) {
 	return rc = new BinNode( e, this );
 }
 
@@ -56,38 +58,46 @@ constexpr bool IsLChild( const BinNode<T> & x ) {
 }
 
 template<typename T>
-constexpr bool IsRChild( const BinNode<T> & x ) {
+constexpr bool
+IsRChild( const BinNode<T> & x ) {
 	return ( !IsRoot( x ) and ( ( &x ) == ( x.parent->rc ) ) );
 }
 
 template<typename T>
-constexpr bool HasParent( const BinNode<T> & x ) {
+constexpr bool
+HasParent( const BinNode<T> & x ) {
 	return ( !IsRoot( x ) );
 }
 
 template<typename T>
-constexpr bool HasLChild( const BinNode<T> & x ) { return ( &x ) ? x.lc : false; }
+constexpr bool
+HasLChild( const BinNode<T> & x ) { return ( &x ) ? x.lc : false; }
 
 template<typename T>
-constexpr bool HasRChild( const BinNode<T> & x ) { return ( &x ) ? x.rc : false; }
+constexpr bool
+HasRChild( const BinNode<T> & x ) { return ( &x ) ? x.rc : false; }
 
 template<typename T>
-constexpr bool HasChild( const BinNode<T> & x ) {
+constexpr bool
+HasChild( const BinNode<T> & x ) {
 	return ( HasLChild( x ) or HasRChild( x ) );
 }
 
 template<typename T>
-constexpr bool HasBothChild( const T & x ) {
+constexpr bool
+HasBothChild( const T & x ) {
 	return ( HasLChild( x ) and HasRChild( x ) );
 }
 
 template<typename T>
-constexpr bool IsLeaf( T  x ) {
+constexpr bool
+IsLeaf( T  x ) {
 	return !HasChild( x );
 }
 
-template<typename T>  // 返回兄弟节点
-constexpr BinNodePosi<T> sibling( BinNodePosi<T> x ) {
+template<typename T>
+constexpr BinNodePosi<T>  // 返回兄弟节点
+sibling( BinNodePosi<T> x ) {
 	if ( !IsRoot( *x ) ) {
 		return  IsLChild( *x )
 			? ( x->parent->rc )
@@ -96,8 +106,9 @@ constexpr BinNodePosi<T> sibling( BinNodePosi<T> x ) {
 		return x;
 }
 
-template<typename T>  // 返回叔叔节点
-constexpr BinNodePosi<T> uncle( BinNodePosi<T> x ) {
+template<typename T>
+constexpr BinNodePosi<T>  // 返回叔叔节点
+uncle( BinNodePosi<T> x ) {
 	if ( !IsRoot( *( x->parent ) ) and !IsRoot( *( x->parent->parent ) ) ) {
 		return  IsLChild( *( x->parent ) )
 			? ( x->parent->parent->rc )
@@ -107,8 +118,9 @@ constexpr BinNodePosi<T> uncle( BinNodePosi<T> x ) {
 	}
 }
 
-template<typename T>  // 返回父节点
-constexpr BinNodePosi<T> FromParentTo( BinNode<T> & x ) {
+template<typename T>
+constexpr BinNodePosi<T>  // 返回父节点
+FromParentTo( BinNode<T> & x ) {
 	return IsRoot( x )
 		? ( &x )
 		: ( IsLChild( x )
