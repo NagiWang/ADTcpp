@@ -6,8 +6,9 @@ protected:
 	int _size;
 	BinNodePosi<T> _root;
 	virtual int updateHeight( BinNodePosi<T> x );
+	void updateHeightAbove( BinNodePosi<T> x );
 public:
-	BinTree() :;
+	BinTree() : _size( 0 ), _root( nullptr ) {};
 	~BinTree() :;
 
 };
