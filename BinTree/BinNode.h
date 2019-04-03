@@ -33,7 +33,7 @@ struct BinNode {
 		data( e ), parent( p ), lc( lc ), rc( rc ),
 		height( h ), npl( l ), color( c ) {}
 
-	int Color() {
+	int Color() {                              // 判断当前节点颜色
 		if ( color == RBColor::r )
 			return 0;
 		else if ( color == RBColor::b )
