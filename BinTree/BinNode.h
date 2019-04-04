@@ -45,7 +45,6 @@ struct BinNode {
 	BinNodePosi<T> inserAsLC( const T & e );   // 将 e 插入为当前节点左孩子
 	BinNodePosi<T> inserAsRC( const T & e );   // 将 e 插入为当前节点右孩子
 
-
 };
 
 template<typename T>

@@ -12,3 +12,11 @@ public:
 	~BinTree() :;
 
 };
+
+template<typename T>
+int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
+	return 0;
+}
+
+template<typename T>
+void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {}
