@@ -102,7 +102,7 @@ constexpr bool IsLeaf( T  x ) {
 	return !HasChild( x );
 }
 
-template<typename T>   // 返回兄弟节点 
+template<typename T>   // 返回兄弟节点
 constexpr BinNodePosi<T> sibling( BinNodePosi<T> x ) {
 	if ( !IsRoot( *x ) ) {
 		return  IsLChild( *x )
