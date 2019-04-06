@@ -15,7 +15,7 @@ public:
 
 template<typename T>
 int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
-	return 0;
+	return x->height = max( stature( x->lc ), stature( x->rc ) ) + 1;
 }
 
 template<typename T>

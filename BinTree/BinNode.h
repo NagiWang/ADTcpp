@@ -11,7 +11,7 @@ constexpr int stature( T p ) {
 	return ( ( p ) ? ( p )->height : -1 );
 }
 
-enum class RBColor { r, b };   // 节点颜色
+enum class RBColor { r, b };         // 节点颜色
 
 template<typename T>
 struct BinNode {
