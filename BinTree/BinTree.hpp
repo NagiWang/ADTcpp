@@ -32,8 +32,12 @@ int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
 template<typename T>
 void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {
 	while ( x ) {
+		int oldHeight = stature( x );
 		updateHeight( x );
-		x = x->parent;
+		if ( oldHeight != updateHeight( x ) )
+			x = x->parent;
+		else
+			break;
 	}
 }
 
@@ -63,7 +67,7 @@ BinNodePosi<T> BinTree<T>::inserAsRC( BinNodePosi<T> x, const T & e ) {
 }
 
 template<typename T>
-BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S ) {
+BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> * &S ) {
 	if ( x->lc = S->_root )
 		x->lc->parent = x;
 	_size += S->_size;
