@@ -16,6 +16,8 @@ public:
 	BinNodePosi<T> root() const { return _root; }
 	BinNodePosi<T> inserAsRoot( const T & e );
 	BinNodePosi<T> inserAsLC( BinNodePosi<T> x, const T & e );
+	BinNodePosi<T> inserAsRC( BinNodePosi<T> x, const T & e );
+	BinNodePosi<T> arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S );
 
 
 
@@ -50,4 +52,25 @@ BinNodePosi<T> BinTree<T>::inserAsLC( BinNodePosi<T> x, const T & e ) {
 	x->inserAsLC( e );
 	updateHeightAbove( x );
 	return x->lc;
+}
+
+template<typename T>
+BinNodePosi<T> BinTree<T>::inserAsRC( BinNodePosi<T> x, const T & e ) {
+	++_size;
+	x->inserAsRC( e );
+	updateHeightAbove( x );
+	return x->rc;
+}
+
+template<typename T>
+BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S ) {
+	if ( x->lc = S->_root )
+		x->lc->parent = x;
+	_size += S->_size;
+	updateHeightAbove( x );
+	S->_root = nullptr;
+	S->_size = 0;
+	release( S );
+	S = nullptr;
+	return x;
 }
