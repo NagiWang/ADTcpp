@@ -14,6 +14,7 @@ public:
 	int empty() const { return !_size; }
 
 	BinNodePosi<T> root() const { return _root; }
+	BinNodePosi<T> inserAsRoot( const T & e );
 
 
 };
@@ -29,3 +30,9 @@ void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {}
 
 template<typename T>
 inline BinTree<T>::~BinTree() {}
+
+template<typename T>
+BinNodePosi<T> BinTree<T>::inserAsRoot( const T & e ) {
+	_size = 1;
+	return _root = new BinNode<T>( e );
+}
