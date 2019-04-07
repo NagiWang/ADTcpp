@@ -11,6 +11,17 @@ constexpr int stature( T p ) {
 	return ( ( p ) ? ( p )->height : -1 );
 }
 
+
+template<typename T>
+constexpr T max( T a, T b ) {
+	return  ( a > b ) ? a : b;
+}
+
+template<typename T>
+constexpr T min( T a, T b ) {
+	return  ( a < b ) ? a : b;
+}
+
 enum class RBColor { r, b };         // ½ÚµãÑÕÉ«
 
 template<typename T>

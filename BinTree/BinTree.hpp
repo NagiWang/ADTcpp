@@ -9,9 +9,12 @@ protected:
 	void updateHeightAbove( BinNodePosi<T> x );
 public:
 	BinTree() : _size( 0 ), _root( nullptr ) {};
-	~BinTree() :;
+	~BinTree();
 
 };
+
+template<typename T>
+inline BinTree<T>::~BinTree() {}
 
 template<typename T>
 int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
@@ -20,3 +23,4 @@ int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
 
 template<typename T>
 void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {}
+
