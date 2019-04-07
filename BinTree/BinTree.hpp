@@ -13,10 +13,11 @@ public:
 	int size() const { return _size; }
 	int empty() const { return !_size; }
 
+	BinNodePosi<T> root() const { return _root; }
+
+
 };
 
-template<typename T>
-inline BinTree<T>::~BinTree() {}
 
 template<typename T>
 int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
@@ -26,3 +27,5 @@ int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
 template<typename T>
 void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {}
 
+template<typename T>
+inline BinTree<T>::~BinTree() {}
