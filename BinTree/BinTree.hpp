@@ -10,6 +10,8 @@ protected:
 public:
 	BinTree() : _size( 0 ), _root( nullptr ) {};
 	~BinTree();
+	int size() const { return _size; }
+	int empty() const { return !_size; }
 
 };
 
