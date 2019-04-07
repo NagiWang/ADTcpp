@@ -15,6 +15,8 @@ public:
 
 	BinNodePosi<T> root() const { return _root; }
 	BinNodePosi<T> inserAsRoot( const T & e );
+	BinNodePosi<T> inserAsLC( BinNodePosi<T> x, const T & e );
+
 
 
 };
@@ -26,7 +28,12 @@ int BinTree<T>::updateHeight( BinNodePosi<T> x ) {
 }
 
 template<typename T>
-void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {}
+void BinTree<T>::updateHeightAbove( BinNodePosi<T> x ) {
+	while ( x ) {
+		updateHeight( x );
+		x = x->parent;
+	}
+}
 
 template<typename T>
 inline BinTree<T>::~BinTree() {}
@@ -35,4 +42,12 @@ template<typename T>
 BinNodePosi<T> BinTree<T>::inserAsRoot( const T & e ) {
 	_size = 1;
 	return _root = new BinNode<T>( e );
+}
+
+template<typename T>
+BinNodePosi<T> BinTree<T>::inserAsLC( BinNodePosi<T> x, const T & e ) {
+	++_size;
+	x->inserAsLC( e );
+	updateHeightAbove( x );
+	return x->lc;
 }
