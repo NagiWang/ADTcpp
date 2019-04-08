@@ -19,8 +19,6 @@ public:
 	BinNodePosi<T> inserAsRC( BinNodePosi<T> x, const T & e );
 	BinNodePosi<T> arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S );
 
-
-
 };
 
 
