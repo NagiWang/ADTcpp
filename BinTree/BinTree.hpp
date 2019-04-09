@@ -18,6 +18,7 @@ public:
 	BinNodePosi<T> inserAsLC( BinNodePosi<T> x, const T & e );
 	BinNodePosi<T> inserAsRC( BinNodePosi<T> x, const T & e );
 	BinNodePosi<T> arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S );
+	BinNodePosi<T> arrachAsRC( BinNodePosi<T> x, BinTree<T> *& S );
 
 };
 
@@ -75,4 +76,9 @@ BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> * &S ) {
 	release( S );
 	S = nullptr;
 	return x;
+}
+
+template<typename T>
+BinNodePosi<T> BinTree<T>::arrachAsRC( BinNodePosi<T> x, BinTree<T> *& S ) {
+	return BinNodePosi<T>();
 }
