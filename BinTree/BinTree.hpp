@@ -79,7 +79,7 @@ BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> * &S ) {
 }
 
 template<typename T>
-BinNodePosi<T> BinTree<T>::arrachAsRC( BinNodePosi<T> x, BinTree<T> *& S ) {
+BinNodePosi<T> BinTree<T>::arrachAsRC( BinNodePosi<T> x, BinTree<T> * &S ) {
 	if ( x->rc = S->_root )
 		x->rc->parent = x;
 	_size += S->_size;
