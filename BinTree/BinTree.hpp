@@ -101,3 +101,4 @@ int BinTree<T>::remove( BinNodePosi<T> x ) {
 	_size -= n;
 	return n;
 }
+ 
