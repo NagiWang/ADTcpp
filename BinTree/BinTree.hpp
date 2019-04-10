@@ -20,6 +20,8 @@ public:
 	BinNodePosi<T> arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S );
 	BinNodePosi<T> arrachAsRC( BinNodePosi<T> x, BinTree<T> *& S );
 
+	int remove( BinNodePosi<T> x );
+
 };
 
 
@@ -89,4 +91,13 @@ BinNodePosi<T> BinTree<T>::arrachAsRC( BinNodePosi<T> x, BinTree<T> * &S ) {
 	release( S );
 	S = nullptr;
 	return x;
+}
+
+template<typename T>
+int BinTree<T>::remove( BinNodePosi<T> x ) {
+	FromParentTo( *x ) = nullptr;
+	updateHeightAbove( x->parent );
+	int n = removeAt( x );
+	_size -= n;
+	return n;
 }
