@@ -21,6 +21,7 @@ public:
 	BinNodePosi<T> arrachAsRC( BinNodePosi<T> x, BinTree<T> *& S );
 
 	int remove( BinNodePosi<T> x );
+	int removeAt( BinNodePosi<T> x );
 
 };
 
@@ -68,7 +69,7 @@ BinNodePosi<T> BinTree<T>::inserAsRC( BinNodePosi<T> x, const T & e ) {
 }
 
 template<typename T>
-BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> * &S ) {
+BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> *& S ) {
 	if ( x->lc = S->_root )
 		x->lc->parent = x;
 	_size += S->_size;
@@ -81,7 +82,7 @@ BinNodePosi<T> BinTree<T>::arrachAsLC( BinNodePosi<T> x, BinTree<T> * &S ) {
 }
 
 template<typename T>
-BinNodePosi<T> BinTree<T>::arrachAsRC( BinNodePosi<T> x, BinTree<T> * &S ) {
+BinNodePosi<T> BinTree<T>::arrachAsRC( BinNodePosi<T> x, BinTree<T> *& S ) {
 	if ( x->rc = S->_root )
 		x->rc->parent = x;
 	_size += S->_size;
@@ -101,4 +102,12 @@ int BinTree<T>::remove( BinNodePosi<T> x ) {
 	_size -= n;
 	return n;
 }
- 
+
+template<typename T>
+int BinTree<T>::removeAt( BinNodePosi<T> x ) {
+	if ( !x )
+		return 0;
+	int n = 1 + remove( x->lc ) + remove( x->rc );
+	release( x->data ); release( x );
+	return n;
+}
