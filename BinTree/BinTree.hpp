@@ -11,7 +11,7 @@ public:
 	BinTree() : _size( 0 ), _root( nullptr ) {};
 	~BinTree();
 	int size() const { return _size; }  // 返回树的大小
-	int empty() const { return !_size; }
+	int empty() const { return !_size; } // 判空
 
 	BinNodePosi<T> root() const { return _root; }
 	BinNodePosi<T> inserAsRoot( const T & e );
