@@ -10,7 +10,7 @@ protected:
 public:
 	BinTree() : _size( 0 ), _root( nullptr ) {};
 	~BinTree();
-	int size() const { return _size; }
+	int size() const { return _size; }  // 返回树的大小
 	int empty() const { return !_size; }
 
 	BinNodePosi<T> root() const { return _root; }
