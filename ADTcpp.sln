@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Calculation", "Calculation\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinTree", "BinTree\BinTree.vcxproj", "{02DC3D3B-4ABA-445D-9B6C-403E7E573F5E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkipList", "SkipList\SkipList.vcxproj", "{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{02DC3D3B-4ABA-445D-9B6C-403E7E573F5E}.Release|x64.Build.0 = Release|x64
 		{02DC3D3B-4ABA-445D-9B6C-403E7E573F5E}.Release|x86.ActiveCfg = Release|Win32
 		{02DC3D3B-4ABA-445D-9B6C-403E7E573F5E}.Release|x86.Build.0 = Release|Win32
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Debug|x64.ActiveCfg = Debug|x64
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Debug|x64.Build.0 = Debug|x64
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Debug|x86.ActiveCfg = Debug|Win32
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Debug|x86.Build.0 = Debug|Win32
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Release|x64.ActiveCfg = Release|x64
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Release|x64.Build.0 = Release|x64
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Release|x86.ActiveCfg = Release|Win32
+		{7C5B3CAB-A377-4782-9C98-8CF98CD5538F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

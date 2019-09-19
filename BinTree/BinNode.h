@@ -34,7 +34,8 @@ struct BinNode {
 	int npl;               // Null Path Length ( 左氏堆 )
 	RBColor color;         // 节点颜色
 	BinNode() : data( 0 ), parent( nullptr ), lc( nullptr ), rc( nullptr ),
-		height( 0 ), npl( 1 ), color( RBColor::r ) {}
+		height( 0 ), npl( 1 ), color( RBColor::r ) {
+	}
 	BinNode( T e,
 			 BinNodePosi<T> p = nullptr,
 			 BinNodePosi<T> lc = nullptr,
@@ -42,9 +43,11 @@ struct BinNode {
 			 int h = 0, int l = 1,
 			 RBColor c = RBColor::r ) :
 		data( e ), parent( p ), lc( lc ), rc( rc ),
-		height( h ), npl( l ), color( c ) {}
+		height( h ), npl( l ), color( c ) {
+	}
 
 	int Color() {                              // 判断当前节点颜色
+
 		if ( color == RBColor::r )
 			return 0;
 		else if ( color == RBColor::b )
