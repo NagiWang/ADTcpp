@@ -3,11 +3,6 @@
 #include <ctime>
 #include "SkipListNode.hpp"
 
-std::default_random_engine e;
-
-e.seed( ( int) std::time( 0 ) );
-std::uniform_int_distribution<int> u( 0, 10000000 );
-
 const int MAXLEVEL = 4;
 
 template<typename T>
